@@ -50,6 +50,39 @@
             margin-top: 10px;
             font-size: 0.9rem;
         }
+        .cam-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: #2563eb;
+            background-color: #eff6ff;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            margin-top: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .cam-link:hover {
+            background-color: #dbeafe;
+        }
+        .highway-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: #065f46;
+            background-color: #ecfdf5;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            margin-top: 0.5rem;
+            margin-left: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .highway-link:hover {
+            background-color: #d1fae5;
+        }
     </style>
 </head>
 <body class="text-slate-800">
@@ -61,7 +94,7 @@
                 <i class="fas fa-snowflake text-blue-300"></i>
                 2026新年北海道道東自駕遊
             </h1>
-            <p class="text-xs text-blue-200 mt-1">2/7 - 2/17 | 11天10夜地質探險 | 地址修正版</p>
+            <p class="text-xs text-blue-200 mt-1">2/7 - 2/17 | 11天10夜地質探險 | 路況強化版</p>
         </div>
         
         <!-- Quick Navigation Bar -->
@@ -95,7 +128,7 @@
                     <div class="mt-2 text-sm text-red-700">
                         <ul class="list-disc list-inside space-y-1">
                             <li><strong>絕對不開夜車：</strong>每日行程請務必於 16:30 前結束。</li>
-                            <li><strong>車隊通訊：</strong>前後車保持距離，副駕負責導航。</li>
+                            <li><strong>隨時查路況：</strong>出發前務必確認 DriveTraffic 高速公路是否封閉。</li>
                             <li><strong>時間估算：</strong>下方時間已含雪地加權，請勿超速。</li>
                         </ul>
                     </div>
@@ -116,8 +149,14 @@
                         <span><i class="fas fa-sun text-orange-400"></i> 日出 06:45</span>
                         <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:54</span>
                     </div>
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://www.hbc.co.jp/info-cam/shinchitose.html" target="_blank" class="cam-link">
+                            <i class="fas fa-video"></i> 查看千歲/機場影像 (HBC)
+                        </a>
+                    </div>
 
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">抵達北海道：湯咖哩與夜間移動</h3>
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">抵達北海道：湯咖哩與夜間移動</h3>
                     
                     <div class="relative pl-6 border-l-2 border-blue-200 space-y-6 mb-4">
                         <div class="relative">
@@ -166,7 +205,16 @@
                         <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:45</span>
                     </div>
 
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">穿越日高山脈：直奔道東</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="cam-link">
+                            <i class="fas fa-video"></i> 查看道東道影像 (HBC)
+                        </a>
+                        <a href="https://www.drivetraffic.jp/" target="_blank" class="highway-link">
+                            <i class="fas fa-road"></i> 高速公路即時路況 (DriveTraffic)
+                        </a>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">穿越日高山脈：直奔道東</h3>
 
                     <div class="relative pl-6 border-l-2 border-blue-200 space-y-6 mb-4">
                         <div class="relative">
@@ -199,10 +247,6 @@
                         </div>
                     </div>
 
-                    <div class="bg-yellow-50 p-3 rounded text-sm text-yellow-800 mb-4">
-                        <i class="fas fa-utensils mr-1"></i> <strong>晚餐：</strong> 飯店自助餐 (已包含)。
-                    </div>
-
                     <a href="https://www.google.com/maps/dir/Casa+Cotaro/Road+Station+Ashoro+Lake/New+Akan+Hotel" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-bold transition">
                         <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 2 導航
                     </a>
@@ -216,7 +260,11 @@
                     <span class="text-xs bg-blue-500 px-2 py-1 rounded">定點遊</span>
                 </div>
                 <div class="p-5">
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">阿寒湖地質與冰上活動</h3>
+                    <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="cam-link">
+                        <i class="fas fa-video"></i> 查看阿寒湖周邊路況 (HBC Info-Cam)
+                    </a>
+
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">阿寒湖地質與冰上活動</h3>
                     <p class="text-sm text-slate-600 mb-4">全日自由活動。本日無長途移動。</p>
                     <div class="bg-slate-100 p-3 rounded text-sm text-slate-700 mb-4">
                         <ul class="list-disc list-inside text-xs space-y-2">
@@ -224,11 +272,6 @@
                             <li><strong>活動：</strong>冰上釣西太公魚 (Wakasagi)、雪上摩托車。</li>
                             <li><strong>拍攝點：</strong>清晨 (6:30-7:30) 湖面尋找霜花 (Frost Flowers)。</li>
                         </ul>
-                    </div>
-                    <div class="bg-yellow-50 p-3 rounded text-sm text-yellow-800 mb-4">
-                        <i class="fas fa-utensils mr-1"></i> <strong>午餐推薦：</strong> 
-                        <br>1. <strong>味心 (Ajishin)</strong>：鹿肉丼飯 (Venison Don)，在地名店。
-                        <br>2. <strong>Pan de Pan</strong>：知名麵包店，適合輕食。
                     </div>
                 </div>
             </div>
@@ -245,7 +288,11 @@
                         <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:48</span>
                     </div>
 
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">破火山口與噴氣孔</h3>
+                    <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="cam-link">
+                        <i class="fas fa-video"></i> 查看弟子屈/網走方向路況 (HBC Info-Cam)
+                    </a>
+
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">破火山口與噴氣孔</h3>
 
                     <div class="relative pl-6 border-l-2 border-blue-200 space-y-6 mb-4">
                         <div class="relative">
@@ -262,35 +309,23 @@
                         <div class="relative">
                             <i class="fas fa-mountain absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
                             <div class="font-semibold">摩周湖第一展望台</div>
-                            <div class="text-sm text-slate-500">🛑 40 min | 拍攝點：展望台右側可拍到摩周岳與湖面全景。</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-store absolute -left-[31px] bg-white text-pink-500 p-1 rounded-full border border-pink-200"></i>
                             <div class="font-semibold text-pink-700">道の駅 摩周温泉</div>
-                            <div class="text-sm text-slate-500">🛑 1 hr | 午餐：豬肉蓋飯或拉麵。有免費足湯。</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-volcano absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
                             <div class="font-semibold">硫黃山 (Atosanupuri)</div>
-                            <div class="text-sm text-slate-500">🛑 40 min | 拍攝點：近距離拍攝黃色硫磺結晶。</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-water absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
                             <div class="font-semibold">砂湯 (屈斜路湖)</div>
-                            <div class="text-sm text-slate-500">🛑 30 min | 挖掘沙灘體驗地熱，有白天鵝。</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
                             <div class="font-semibold">Wisteria (屈斜路)</div>
-                            <div class="text-sm text-slate-500">16:30 抵達 | 弟子屈町屈斜路206-50</div>
                         </div>
-                    </div>
-
-                    <div class="bg-green-50 p-3 rounded text-sm text-green-800 mb-4">
-                        <i class="fas fa-shopping-cart mr-1"></i> <strong>超市補給：</strong> A-Coop Teshikaga (Aコープ てしかが店)。位於摩周溫泉附近，請在前往民宿前先買好晚餐食材或熟食。民宿周邊無商店。
-                    </div>
-                     <div class="bg-yellow-50 p-3 rounded text-sm text-yellow-800 mb-4">
-                        <i class="fas fa-utensils mr-1"></i> <strong>午餐推薦：</strong> 弟子屈拉麵 總本店 (Teshikaga Ramen)。必點：魚介醬油拉麵。
                     </div>
 
                     <a href="https://www.google.com/maps/dir/New+Akan+Hotel/Lake+Mashu+Observatory+No.1/Road+Station+Mashu+Onsen/A-Coop+Teshikaga/Mount+Io/Sunayu/206-50+Kussharo,+Teshikaga" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-bold transition">
@@ -311,7 +346,11 @@
                         <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:48</span>
                     </div>
 
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">鄂霍次克海流冰與野付半島</h3>
+                    <a href="https://www.hbc.co.jp/info-cam/utoro.html" target="_blank" class="cam-link">
+                        <i class="fas fa-video"></i> 查看知床/根室路況 (HBC)
+                    </a>
+
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">鄂霍次克海流冰與野付半島</h3>
 
                     <div class="relative pl-6 border-l-2 border-cyan-200 space-y-6 mb-4">
                         <div class="relative">
@@ -328,27 +367,19 @@
                         <div class="relative">
                             <i class="fas fa-icicles absolute -left-[31px] bg-white text-cyan-500 p-1 rounded-full border border-cyan-200"></i>
                             <div class="font-semibold">以久科原生花園 (斜里海岸)</div>
-                            <div class="text-sm text-slate-500">🛑 40 min | 鄂霍次克海最近點，可走到沙灘看流冰。</div>
                         </div>
                          <div class="relative">
                             <i class="fas fa-store absolute -left-[31px] bg-white text-pink-500 p-1 rounded-full border border-pink-200"></i>
                             <div class="font-semibold text-pink-700">道の駅 尾岱沼 (Odaito)</div>
-                            <div class="text-sm text-slate-500">🛑 1 hr | 午餐：別海巨無霸扇貝漢堡。二樓有望遠鏡看北方四島。</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-camera absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
                             <div class="font-semibold">野付半島自然中心</div>
-                            <div class="text-sm text-slate-500">🛑 1 hr | 拍攝點：冰封內灣與枯木林 (Todowara)。</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
                             <div class="font-semibold">LOS PERRITOS (別海)</div>
-                            <div class="text-sm text-slate-500">16:45 預計抵達 | 237-4, Betsukai</div>
                         </div>
-                    </div>
-
-                    <div class="bg-green-50 p-3 rounded text-sm text-green-800 mb-4">
-                        <i class="fas fa-shopping-cart mr-1"></i> <strong>超市補給：</strong> Fukuhara 別海店 (フクハラ 別海店)。別海市區大型超市，買牛奶一定要買「別海牛乳」！
                     </div>
 
                     <a href="https://www.google.com/maps/dir/206-50+Kussharo,+Teshikaga/Ikushina+Primeval+Flower+Garden/Road+Station+Odaito/Notsuke+Peninsula+Nature+Center/237-4,+Betsukai,+Hokkaido+086-0216" target="_blank" class="block w-full bg-cyan-600 hover:bg-cyan-700 text-white text-center py-3 rounded-lg font-bold transition">
@@ -369,36 +400,31 @@
                         <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:50</span>
                     </div>
 
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">釧路濕原與爐端燒</h3>
+                    <a href="https://www.hbc.co.jp/info-cam/kushiro.html" target="_blank" class="cam-link">
+                        <i class="fas fa-video"></i> 查看釧路路況影像 (HBC)
+                    </a>
+
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">釧路濕原與爐端燒</h3>
 
                     <div class="relative pl-6 border-l-2 border-emerald-200 space-y-6 mb-4">
                         <div class="relative">
                             <i class="fas fa-car absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
                             <div class="font-semibold">LOS PERRITOS</div>
-                            <div class="text-sm text-slate-500">09:30 出發</div>
                         </div>
                         <div class="info-section">
                             <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (別海 -> 濕原 -> 釧路)</p>
-                            <span class="traffic-badge">總距離 100km</span>
-                            <span class="traffic-badge">總行車 2小時</span>
+                            <span class="traffic-badge">距離 100km</span>
+                            <span class="traffic-badge">時間 2小時</span>
                             <span class="traffic-badge">免費</span>
                         </div>
                          <div class="relative">
                             <i class="fas fa-tree absolute -left-[31px] bg-white text-emerald-500 p-1 rounded-full border border-emerald-200"></i>
                             <div class="font-semibold">釧路市濕原展望台</div>
-                            <div class="text-sm text-slate-500">🛑 1.5 hr | 走木棧道進入濕原內部。拍攝點：展望台頂樓看蛇行河川。</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
                             <div class="font-semibold">釧路市區飯店</div>
-                            <div class="text-sm text-slate-500">16:00 預計抵達 (導航至車站)</div>
                         </div>
-                    </div>
-
-                    <div class="bg-yellow-50 p-3 rounded text-sm text-yellow-800 mb-4">
-                         <i class="fas fa-utensils mr-1"></i> <strong>晚餐推薦：</strong> 
-                         <br>1. <strong>爐端燒 煉瓦 (Robata Renga)</strong>：古倉庫改建，氣氛佳。
-                         <br>2. <strong>泉屋 (Izumiya)</strong>：鐵板義大利麵 (Spa-Katsu)，份量巨大。
                     </div>
 
                     <a href="https://www.google.com/maps/dir/237-4,+Betsukai,+Hokkaido+086-0216/Kushiro+Marsh+Observatory/Kushiro+Station" target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center py-3 rounded-lg font-bold transition">
@@ -419,23 +445,29 @@
                         <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:53</span>
                     </div>
 
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">勝手丼、SL火車與寶石冰</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://www.hbc.co.jp/info-cam/obihiro.html" target="_blank" class="cam-link">
+                            <i class="fas fa-video"></i> 查看帶廣影像 (HBC)
+                        </a>
+                        <a href="https://www.drivetraffic.jp/" target="_blank" class="highway-link">
+                            <i class="fas fa-road"></i> 高速公路即時路況 (DriveTraffic)
+                        </a>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">勝手丼、SL火車與寶石冰</h3>
 
                     <div class="relative pl-6 border-l-2 border-purple-200 space-y-6 mb-4">
                         <div class="relative">
                             <i class="fas fa-utensils absolute -left-[31px] bg-white text-orange-500 p-1 rounded-full border border-orange-200"></i>
                             <div class="font-semibold">釧路和商市場 (08:00)</div>
-                            <div class="text-sm text-slate-500">🛑 1 hr | 早餐：<strong>勝手丼</strong> (買白飯後自己去各攤位選海鮮)。</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-crow absolute -left-[31px] bg-white text-emerald-500 p-1 rounded-full border border-emerald-200"></i>
                             <div class="font-semibold">鶴居・伊藤丹頂鶴聖域 (09:40)</div>
-                            <div class="text-sm text-slate-500">🛑 50 min | 拍攝點：9:00 是餵食時間，可拍到鶴群飛舞與求偶。</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-train absolute -left-[31px] bg-white text-slate-800 p-1 rounded-full border border-slate-200"></i>
                             <div class="font-semibold">SL冬之濕原號 拍攝 (11:20-11:40)</div>
-                            <div class="text-sm text-slate-500">🛑 30 min | 推薦點：塘路站周邊或平交道。火車約11:40經過塘路。</div>
                         </div>
                         <div class="info-section">
                             <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (塘路 -> 大津 -> 帶廣)</p>
@@ -446,27 +478,13 @@
                         <div class="relative">
                             <i class="fas fa-gem absolute -left-[31px] bg-white text-purple-500 p-1 rounded-full border border-purple-200"></i>
                             <div class="font-semibold">大津海岸 (寶石冰)</div>
-                            <div class="text-sm text-slate-500">🛑 1 hr | 拍攝點：陽光穿透冰塊的角度。</div>
-                        </div>
-                         <div class="relative">
-                            <i class="fas fa-store absolute -left-[31px] bg-white text-pink-500 p-1 rounded-full border border-pink-200"></i>
-                            <div class="font-semibold text-pink-700">朝日堂 (豊頃町)</div>
-                            <div class="text-sm text-slate-500">🛑 20 min | 甜點：卡士達甜甜圈。</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
                             <div class="font-semibold">東橫INN 帶廣</div>
-                            <div class="text-sm text-slate-500">16:45 預計抵達</div>
                         </div>
                     </div>
 
-                     <div class="bg-yellow-50 p-3 rounded text-sm text-yellow-800 mb-4">
-                        <i class="fas fa-utensils mr-1"></i> <strong>晚餐推薦：</strong> 
-                        <br>1. <strong>元祖豚丼 ぱんちょう (Pancho)</strong>：帶廣豚丼始祖。
-                        <br>2. <strong>平和園</strong>：當地人愛的燒肉店，CP值高。
-                    </div>
-
-                    <!-- 導航特別設定經過塘路 -->
                     <a href="https://www.google.com/maps/dir/Kushiro+Washo+Market/Tsurui-Ito+Tancho+Sanctuary/Toro+Station/Otsu+Coast/Asahido/Toyoko+Inn+Hokkaido+Tokachi+Obihiro+Ekimae" target="_blank" class="block w-full bg-purple-600 hover:bg-purple-700 text-white text-center py-3 rounded-lg font-bold transition">
                         <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 7 導航
                     </a>
@@ -484,17 +502,22 @@
                         <span><i class="fas fa-sun text-orange-400"></i> 日出 06:33</span>
                         <span><i class="fas fa-moon text-indigo-400"></i> 日落 17:00</span>
                     </div>
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">返回道央：高速公路移動</h3>
+
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://www.hbc.co.jp/info-cam/obihiro.html" target="_blank" class="cam-link">
+                            <i class="fas fa-video"></i> 查看十勝路況影像 (HBC)
+                        </a>
+                        <a href="https://www.drivetraffic.jp/" target="_blank" class="highway-link">
+                            <i class="fas fa-road"></i> 高速公路即時路況 (DriveTraffic)
+                        </a>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">返回道央：高速公路移動</h3>
                     <div class="relative pl-6 border-l-2 border-slate-200 space-y-6 mb-4">
                         <div class="relative">
                             <i class="fas fa-car absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
                             <div class="font-semibold">帶廣市區</div>
                             <div class="text-sm text-slate-500">09:30 出發</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-store absolute -left-[31px] bg-white text-pink-500 p-1 rounded-full border border-pink-200"></i>
-                            <div class="font-semibold text-pink-700">道の駅 おとふけ (Otofuke)</div>
-                            <div class="text-sm text-slate-500">🛑 1 hr | NHK晨間劇「夏空」場景，超大型道之驛。</div>
                         </div>
                         <div class="info-section">
                             <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (音更 -> 白老)</p>
@@ -504,21 +527,12 @@
                             <p class="text-xs text-slate-600 mt-1">經：道東自動車道 (音更帶廣IC -> 白老IC)。</p>
                         </div>
                         <div class="relative">
-                            <i class="fas fa-coffee absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
-                            <div class="font-semibold">道の駅 夕張メロード</div>
-                            <div class="text-sm text-slate-500">🛑 30 min | 休息、哈密瓜果凍。</div>
-                        </div>
-                        <div class="relative">
                             <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
                             <div class="font-semibold">One House (白老)</div>
-                            <div class="text-sm text-slate-500">15:30 抵達 | 白老車站步行1分</div>
                         </div>
                     </div>
-                     <div class="bg-green-50 p-3 rounded text-sm text-green-800 mb-4">
-                        <i class="fas fa-shopping-cart mr-1"></i> <strong>超市補給：</strong> Super Kumagai (スーパーくまがい)。白老最強超市，必買「白老牛」肉片回民宿煮，還有大量新鮮海鮮。
-                    </div>
-                    <div class="bg-yellow-50 p-3 rounded text-sm text-yellow-800 mb-4">
-                        <i class="fas fa-utensils mr-1"></i> <strong>晚餐：</strong> 建議在民宿享用白老牛火鍋。
+                    <div class="bg-green-50 p-3 rounded text-sm text-green-800 mb-4">
+                        <i class="fas fa-shopping-cart mr-1"></i> <strong>超市補給：</strong> Super Kumagai。必買「白老牛」肉片回民宿煮火鍋。
                     </div>
                     <a href="https://www.google.com/maps/dir/Toyoko+Inn+Hokkaido+Tokachi+Obihiro+Ekimae/Road+Station+Otofuke/Road+Station+Yubari+Merodo/Super+Kumagai/One+House,+Shiraoi" target="_blank" class="block w-full bg-slate-600 hover:bg-slate-700 text-white text-center py-3 rounded-lg font-bold transition">
                         <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 8 導航
@@ -537,17 +551,20 @@
                         <span><i class="fas fa-sun text-orange-400"></i> 日出 06:35</span>
                         <span><i class="fas fa-moon text-indigo-400"></i> 日落 17:05</span>
                     </div>
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">愛努文化與支笏湖破火山口</h3>
+
+                    <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="cam-link">
+                        <i class="fas fa-video"></i> 查看札幌/道央路況 (HBC Info-Cam)
+                    </a>
+
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">愛努文化與支笏湖破火山口</h3>
                     <div class="relative pl-6 border-l-2 border-slate-200 space-y-6 mb-4">
                         <div class="relative">
                             <i class="fas fa-car absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
                             <div class="font-semibold">One House</div>
-                            <div class="text-sm text-slate-500">09:00 出發</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-museum absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
                             <div class="font-semibold">Upopoy (民族共生象徵空間)</div>
-                            <div class="text-sm text-slate-500">🛑 2.5 hr | 觀賞傳統舞蹈表演、博物館參觀。</div>
                         </div>
                         <div class="info-section">
                             <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (白老 -> 支笏湖 -> 札幌)</p>
@@ -558,18 +575,11 @@
                          <div class="relative">
                             <i class="fas fa-water absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
                             <div class="font-semibold">支笏湖 (Lake Shikotsu)</div>
-                            <div class="text-sm text-slate-500">🛑 1 hr | 支笏湖遊客中心。拍攝點：紅色山線鐵橋。</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
                             <div class="font-semibold">MP STYLE Fortuna (札幌)</div>
-                            <div class="text-sm text-slate-500">16:30 預計抵達 | 南5条西10丁目1015-7</div>
                         </div>
-                    </div>
-                     <div class="bg-yellow-50 p-3 rounded text-sm text-yellow-800 mb-4">
-                        <i class="fas fa-utensils mr-1"></i> <strong>札幌晚餐：</strong> 
-                        <br>1. <strong>Suage+ 湯咖哩</strong>：知名的串燒湯咖哩。
-                        <br>2. <strong>信玄拉麵 (Ramen Shingen)</strong>：超人氣味噌拉麵，需排隊。
                     </div>
                     <a href="https://www.google.com/maps/dir/One+House,+Shiraoi/Upopoy/Lake+Shikotsu/MP+STYLE+Fortuna,+1015-7+Minami+5+Jonishi,+Sapporo" target="_blank" class="block w-full bg-slate-600 hover:bg-slate-700 text-white text-center py-3 rounded-lg font-bold transition">
                         <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 9 導航
@@ -584,19 +594,23 @@
                     <span class="text-xs bg-slate-500 px-2 py-1 rounded">市區觀光</span>
                 </div>
                 <div class="p-5">
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">札幌一日遊：徒步與採買</h3>
+                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
+                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:40</span>
+                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 17:05</span>
+                    </div>
+
+                    <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="cam-link">
+                        <i class="fas fa-video"></i> 查看札幌市區路況 (HBC Info-Cam)
+                    </a>
+
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">札幌一日遊：徒步與採買</h3>
                     <p class="text-sm text-slate-600">車輛停放飯店，步行或搭乘地鐵移動。</p>
                     <div class="bg-slate-100 p-3 rounded text-sm text-slate-700 mt-2 mb-4">
                         <ul class="list-disc list-inside">
-                            <li><strong>狸小路商店街：</strong> 藥妝 (唐吉軻德、松本清)、伴手禮採買。</li>
-                            <li><strong>大通公園：</strong> 拍攝電視塔最佳角度在西3丁目或4丁目。</li>
-                            <li><strong>北海道大學：</strong> 綜合博物館 (地質標本豐富)，從北13條門進入銀杏並木。</li>
+                            <li><strong>狸小路商店街：</strong> 藥妝、伴手禮採買。</li>
+                            <li><strong>大通公園：</strong> 拍攝電視塔。</li>
+                            <li><strong>北海道大學：</strong> 綜合博物館 (地質標本豐富)。</li>
                         </ul>
-                    </div>
-                    <div class="bg-yellow-50 p-3 rounded text-sm text-yellow-800 mb-4">
-                        <i class="fas fa-utensils mr-1"></i> <strong>美食推薦：</strong> 
-                        <br>1. <strong>根室花丸 (Nemuro Hanamaru)</strong>：Stellar Place店，CP值最高迴轉壽司。
-                        <br>2. <strong>成吉思汗 達摩 (Daruma)</strong>：薄野區排隊名店，炭火烤羊肉。
                     </div>
                 </div>
             </div>
@@ -608,12 +622,25 @@
                     <span class="text-xs bg-slate-600 px-2 py-1 rounded">返程</span>
                 </div>
                 <div class="p-5">
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">前往機場</h3>
+                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
+                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:35</span>
+                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 17:05</span>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://www.hbc.co.jp/info-cam/shinchitose.html" target="_blank" class="cam-link">
+                            <i class="fas fa-video"></i> 查看機場路況影像 (HBC)
+                        </a>
+                        <a href="https://www.drivetraffic.jp/" target="_blank" class="highway-link">
+                            <i class="fas fa-road"></i> 高速公路即時路況 (DriveTraffic)
+                        </a>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">前往機場</h3>
                     <div class="relative pl-6 border-l-2 border-slate-200 space-y-6 mb-4">
                         <div class="relative">
                             <i class="fas fa-car absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
                             <div class="font-semibold">札幌市區</div>
-                            <div class="text-sm text-slate-500">09:00 出發 (避開上班車潮)</div>
                         </div>
                         <div class="info-section">
                             <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (札幌 -> 機場)</p>
@@ -623,13 +650,11 @@
                         </div>
                         <div class="relative">
                             <i class="fas fa-gas-pump absolute -left-[31px] bg-white text-red-500 p-1 rounded-full border border-red-200"></i>
-                            <div class="font-semibold">千歲市區加油</div>
-                            <div class="text-sm text-slate-500">請務必「滿油還車」並保留收據。</div>
+                            <div class="font-semibold">千歲市區加油 (滿油還車)</div>
                         </div>
                         <div class="relative">
                             <i class="fas fa-plane absolute -left-[31px] bg-white text-red-500 p-1 rounded-full border border-red-200"></i>
                             <div class="font-semibold">新千歲機場 (12:00前還車)</div>
-                            <div class="text-sm text-slate-500">14:40 班機起飛 | 機場國內線2樓超好逛，建議預留時間。</div>
                         </div>
                     </div>
                     <a href="https://www.google.com/maps/dir/MP+STYLE+Fortuna/New+Chitose+Airport" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-900 text-white text-center py-3 rounded-lg font-bold transition">
