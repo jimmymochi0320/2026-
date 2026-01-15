@@ -81,6 +81,9 @@
     <nav class="sticky-nav shadow-xl">
         <div class="container mx-auto max-w-2xl p-2">
             <div class="overflow-x-auto whitespace-nowrap flex gap-2 nav-scroller px-2 py-1">
+                <!-- Weather Button (First Position) -->
+                <a href="#weather" class="px-4 py-2 bg-amber-500 text-slate-900 rounded-full text-xs font-black hover:bg-amber-400 shrink-0 transition shadow-lg border border-amber-600"><i class="fas fa-cloud-sun-rain mr-1"></i> 即時天氣</a>
+                
                 <a href="#day-1" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D1</a>
                 <a href="#day-2" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D2</a>
                 <a href="#day-3" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D3</a>
@@ -108,7 +111,6 @@
                 <i class="fas fa-plane-arrival text-slate-100 text-4xl mb-1"></i>
             </div>
             <div class="p-6">
-                <!-- Daylight bar -->
                 <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
                     <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
                         <span>🌅 06:45 AM</span>
@@ -117,7 +119,6 @@
                     </div>
                     <div class="daylight-bar"><div class="daylight-fill" style="left: 28%; width: 42%;"></div></div>
                 </div>
-                <!-- Stats -->
                 <div class="drive-stat-card mb-6">
                     <div class="text-center border-r border-slate-200">
                         <span class="text-[9px] text-slate-400 font-black uppercase">Distance</span>
@@ -132,7 +133,6 @@
                         <p class="font-black text-lg text-emerald-600 italic">免費</p>
                     </div>
                 </div>
-                <!-- Tips -->
                 <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 mb-8">
                     <h4 class="text-amber-800 font-black text-xs uppercase mb-2 flex items-center gap-2">
                         <i class="fas fa-lightbulb"></i> 抵達首日攻略
@@ -143,13 +143,11 @@
                         <li>• <strong>超市：</strong>Lucky 長沼店是當晚唯一的補給點，請買足飲用水。</li>
                     </ul>
                 </div>
-                <!-- Timeline -->
                 <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8">
                     <div class="relative"><div class="timeline-dot bg-blue-500"></div><p class="text-[11px] font-black text-blue-600">16:05</p><p class="text-sm font-bold text-slate-800">新千歲機場 CTS 抵達</p></div>
                     <div class="relative"><div class="timeline-dot bg-orange-500"></div><p class="text-[11px] font-black text-orange-600">18:00</p><p class="text-sm font-bold text-slate-800">奧芝商店湯咖哩 (晚餐)</p></div>
                     <div class="relative"><div class="timeline-dot bg-slate-800"></div><p class="text-[11px] font-black text-slate-500">19:30</p><p class="text-sm font-bold text-slate-800">抵達 Casa Cotaro (長沼)</p></div>
                 </div>
-                <!-- Actions -->
                 <div class="grid grid-cols-2 gap-3">
                     <a href="https://www.google.com/maps/dir/New+Chitose+Airport/Okushiba+Shoten+Chitose+Salmon+Park/Casa+Cotaro,+1-chome-6-3+Asahimachiminami,+Naganuma" target="_blank" class="col-span-2 bg-blue-600 text-white text-center py-4 rounded-xl font-black text-sm shadow-lg hover:bg-blue-700 active:scale-95 transition-all uppercase tracking-widest"><i class="fas fa-location-arrow mr-2"></i> Open Navigation</a>
                     <a href="https://www.hbc.co.jp/info-cam/shinchitose.html" target="_blank" class="bg-slate-100 text-slate-600 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2"><i class="fas fa-video"></i> 機場路況</a>
@@ -238,7 +236,7 @@
             </div>
         </section>
 
-        <!-- Day 4 (The Template Base) -->
+        <!-- Day 4 -->
         <section id="day-4" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-blue-900">
             <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
                 <div>
@@ -577,16 +575,49 @@
             </div>
         </section>
 
+        <!-- Weather Section -->
+        <section id="weather" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-amber-500 mb-12">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Real-time Weather & Map</p>
+                    <h2 class="text-xl font-black text-slate-800">即時氣象與道東地圖</h2>
+                </div>
+                <i class="fas fa-cloud-sun text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-4 bg-slate-50 space-y-6">
+                <!-- WeatherWidget.io -->
+                <div class="rounded-xl overflow-hidden shadow-sm border border-slate-200 bg-white">
+                    <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/43d06141d35/sapporo/" data-label_1="HOKKAIDO" data-label_2="日本北海道即時氣象" data-theme="pure" >HOKKAIDO 日本北海道即時氣象</a>
+                    <script>
+                    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+                    </script>
+                </div>
+                <!-- Windy.com Embed -->
+                <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-inner bg-white">
+                    <iframe 
+                        width="100%" 
+                        height="450" 
+                        src="https://embed.windy.com/embed2.html?lat=43.500&lon=142.500&zoom=7&level=surface&overlay=temp&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1" 
+                        frameborder="0">
+                    </iframe>
+                </div>
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <span class="px-3 py-1 bg-white border border-slate-200 rounded-full text-[10px] font-bold text-slate-500 uppercase tracking-tight"><i class="fas fa-info-circle mr-1 text-amber-500"></i> 七天天氣預報</span>
+                    <span class="px-3 py-1 bg-white border border-slate-200 rounded-full text-[10px] font-bold text-slate-500 uppercase tracking-tight"><i class="fas fa-wind mr-1 text-blue-400"></i> Windy 即時風場/溫度</span>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Bottom Footer for Mobile -->
-    <footer class="bg-slate-900 text-slate-500 text-center p-16 text-xs font-bold font-black">
+    <!-- Bottom Footer -->
+    <footer class="bg-slate-900 text-slate-500 text-center p-16 text-xs font-bold">
         <div class="flex justify-center gap-6 mb-4 text-slate-400 text-xl">
             <i class="fas fa-mountain"></i>
             <i class="fas fa-snowflake"></i>
             <i class="fas fa-car"></i>
         </div>
-        <p>© 2026 北海道自駕地質探險隊</p>
+        <p>© 2026 新年北海道自駕</p>
         <p class="mt-4 uppercase tracking-widest opacity-30 text-[10px]">Happy New Year • Drive Safe • Stay Warm</p>
     </footer>
 
