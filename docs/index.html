@@ -507,7 +507,7 @@
                 </div>
                 <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8 text-sm">
                     <div class="relative"><div class="timeline-dot bg-slate-400"></div><p class="text-[11px] font-black text-slate-500 uppercase">09:00</p><p class="font-bold">白老民宿出發</p></div>
-                    <div class="relative"><div class="timeline-dot bg-orange-600"></div><p class="text-[11px] font-black text-orange-600 uppercase">09:30</p><p class="font-bold font-black">Upopoy 民族共生象徵空間</p></div>
+                    <div class="relative"><div class="timeline-dot bg-orange-600"></div><p class="text-[11px] font-black text-orange-600 uppercase">09:30</p><p class="font-bold font-black">Upopoy 民族共共生象徵空間</p></div>
                     <div class="relative"><div class="timeline-dot bg-blue-500"></div><p class="text-[11px] font-black text-blue-600 uppercase">13:30</p><p class="font-bold font-black text-blue-800 uppercase tracking-tighter">支笏湖 (地質觀察)</p></div>
                     <div class="relative"><div class="timeline-dot bg-indigo-600"></div><p class="text-[11px] font-black text-indigo-600 uppercase">16:30</p><p class="font-bold">抵達札幌民宿入住</p></div>
                 </div>
@@ -602,18 +602,57 @@
                     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
                     </script>
                 </div>
-                <!-- Windy.com Embed -->
-                <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-inner bg-white">
-                    <iframe 
-                        width="100%" 
-                        height="450" 
-                        src="https://embed.windy.com/embed2.html?lat=43.500&lon=142.500&zoom=7&level=surface&overlay=temp&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1" 
-                        frameborder="0">
-                    </iframe>
+
+                <!-- Windy.com Embed with Robust Geolocation Fallback -->
+                <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-inner bg-white min-h-[450px]">
+                    <div id="windy-container" class="flex items-center justify-center h-[450px] text-slate-400 text-sm italic">
+                        <div class="text-center">
+                            <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                            <p>正在嘗試獲取當前位置...</p>
+                        </div>
+                    </div>
+
+                    <script>
+                        function loadWindy(lat, lon, isFallback = false) {
+                            const windyUrl = `https://embed.windy.com/embed2.html?lat=${lat}&lon=${lon}&zoom=8&level=surface&overlay=temp&menu=&message=&marker=true&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1`;
+                            document.getElementById('windy-container').innerHTML = `
+                                <iframe 
+                                    width="100%" 
+                                    height="450" 
+                                    src="${windyUrl}" 
+                                    frameborder="0">
+                                </iframe>`;
+                            if (isFallback) {
+                                console.log("Using fallback location: Hokkaido central.");
+                            }
+                        }
+
+                        // 預設位置：北海道中部 (大雪山/旭川附近)
+                        const defaultLat = 43.500;
+                        const defaultLon = 142.500;
+
+                        if (navigator.geolocation) {
+                            // 設定逾時為 5 秒，避免長時間卡在「載入中」
+                            navigator.geolocation.getCurrentPosition(
+                                (position) => {
+                                    loadWindy(position.coords.latitude, position.coords.longitude);
+                                },
+                                (error) => {
+                                    // 發生錯誤 (拒絕、逾時、不可用) 時，載入預設北海道地圖
+                                    loadWindy(defaultLat, defaultLon, true);
+                                    console.warn("Geolocation failed, loading default location.");
+                                },
+                                { timeout: 5000 }
+                            );
+                        } else {
+                            loadWindy(defaultLat, defaultLon, true);
+                        }
+                    </script>
                 </div>
+
                 <div class="flex flex-wrap gap-2 pt-2">
                     <span class="px-3 py-1 bg-white border border-slate-200 rounded-full text-[10px] font-bold text-slate-500 uppercase tracking-tight"><i class="fas fa-info-circle mr-1 text-amber-500"></i> 七天天氣預報</span>
-                    <span class="px-3 py-1 bg-white border border-slate-200 rounded-full text-[10px] font-bold text-slate-500 uppercase tracking-tight"><i class="fas fa-wind mr-1 text-blue-400"></i> Windy 即時風場/溫度</span>
+                    <span class="px-3 py-1 bg-white border border-slate-200 rounded-full text-[10px] font-bold text-slate-500 uppercase tracking-tight"><i class="fas fa-location-arrow mr-1 text-blue-400"></i> Windy 當前/預設位置觀測</span>
                 </div>
             </div>
         </section>
