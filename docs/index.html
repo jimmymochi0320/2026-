@@ -10,665 +10,584 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: #f0f4f8;
+            background-color: #f1f5f9;
+            scroll-behavior: smooth;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         .nav-scroller {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
+            scrollbar-width: none;
         }
         .nav-scroller::-webkit-scrollbar {
-            height: 6px;
+            display: none;
         }
-        .nav-scroller::-webkit-scrollbar-track {
-            background: transparent;
+        .glass-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
         }
-        .nav-scroller::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 255, 255, 0.4);
-            border-radius: 20px;
+        .drive-stat-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .daylight-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: #1e293b;
+            overflow: hidden;
+            position: relative;
+            margin-top: 6px;
+        }
+        .daylight-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f59e0b 0%, #fef3c7 50%, #f59e0b 100%);
+            position: absolute;
         }
         html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 140px;
+            scroll-padding-top: 130px;
         }
-        .traffic-badge {
-            font-size: 0.75rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            background-color: #e2e8f0;
-            color: #475569;
-            margin-right: 4px;
+        .btn-action {
+            @apply flex items-center justify-center gap-2 text-xs font-bold py-2 px-4 rounded-lg transition-all;
         }
-        .info-section {
-            background-color: #f8fafc;
-            border-left: 3px solid #3b82f6;
-            padding: 10px;
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-        .cam-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.75rem;
-            color: #2563eb;
-            background-color: #eff6ff;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.375rem;
-            margin-top: 0.5rem;
-            text-decoration: none;
-            transition: background-color 0.2s;
-        }
-        .cam-link:hover {
-            background-color: #dbeafe;
-        }
-        .highway-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.75rem;
-            color: #065f46;
-            background-color: #ecfdf5;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.375rem;
-            margin-top: 0.5rem;
-            margin-left: 0.5rem;
-            text-decoration: none;
-            transition: background-color 0.2s;
-        }
-        .highway-link:hover {
-            background-color: #d1fae5;
+        .timeline-dot {
+            @apply absolute -left-[23px] w-4 h-4 rounded-full border-4 border-white bg-blue-500;
         }
     </style>
 </head>
-<body class="text-slate-800">
+<body class="text-slate-800 leading-relaxed">
 
-    <!-- Sticky Header & Nav -->
-    <header class="bg-gradient-to-r from-blue-800 to-slate-800 text-white sticky top-0 z-50 shadow-lg">
-        <div class="p-4 container mx-auto max-w-2xl">
-            <h1 class="text-xl font-bold flex items-center gap-2">
-                <i class="fas fa-snowflake text-blue-300"></i>
-                2026新年北海道道東自駕遊
-            </h1>
-            <p class="text-xs text-blue-200 mt-1">2/7 - 2/17 | 11天10夜地質探險 | 路況強化版</p>
-        </div>
-        
-        <!-- Quick Navigation Bar -->
-        <div class="bg-slate-900/50 backdrop-blur-sm border-t border-slate-700">
-            <div class="container mx-auto max-w-2xl overflow-x-auto whitespace-nowrap py-2 px-4 nav-scroller flex gap-2">
-                <a href="#day-1" class="shrink-0 px-3 py-1 bg-slate-700 hover:bg-blue-500 rounded-full text-xs transition">D1 抵達</a>
-                <a href="#day-2" class="shrink-0 px-3 py-1 bg-slate-700 hover:bg-blue-500 rounded-full text-xs transition">D2 移動</a>
-                <a href="#day-3" class="shrink-0 px-3 py-1 bg-slate-700 hover:bg-blue-500 rounded-full text-xs transition">D3 阿寒</a>
-                <a href="#day-4" class="shrink-0 px-3 py-1 bg-slate-700 hover:bg-blue-500 rounded-full text-xs transition">D4 火山</a>
-                <a href="#day-5" class="shrink-0 px-3 py-1 bg-slate-700 hover:bg-blue-500 rounded-full text-xs transition">D5 流冰</a>
-                <a href="#day-6" class="shrink-0 px-3 py-1 bg-slate-700 hover:bg-blue-500 rounded-full text-xs transition">D6 丹頂鶴</a>
-                <a href="#day-7" class="shrink-0 px-3 py-1 bg-slate-700 hover:bg-blue-500 rounded-full text-xs transition">D7 寶石冰</a>
-                <a href="#day-8" class="shrink-0 px-3 py-1 bg-slate-700 hover:bg-blue-500 rounded-full text-xs transition">D8 回程</a>
-                <a href="#day-9" class="shrink-0 px-3 py-1 bg-slate-700 hover:bg-blue-500 rounded-full text-xs transition">D9 愛努</a>
-                <a href="#day-10" class="shrink-0 px-3 py-1 bg-slate-700 hover:bg-blue-500 rounded-full text-xs transition">D10 札幌</a>
-                <a href="#day-11" class="shrink-0 px-3 py-1 bg-slate-700 hover:bg-blue-500 rounded-full text-xs transition">D11 機場</a>
+    <!-- Header -->
+    <header class="bg-slate-900 text-white pt-8 pb-4 px-6">
+        <div class="container mx-auto max-w-2xl">
+            <div class="flex items-center gap-3 justify-center md:justify-start">
+                <i class="fas fa-snowflake text-blue-400 text-3xl animate-pulse"></i>
+                <h1 class="text-2xl font-black tracking-tight">2026 新年北海道自駕</h1>
             </div>
+            <p class="text-[10px] text-slate-400 mt-2 uppercase tracking-[0.2em] text-center md:text-left opacity-80">Geological & Nature Winter Expedition</p>
         </div>
     </header>
 
-    <main class="container mx-auto max-w-2xl p-4 pb-24">
-        
-        <!-- Safety Alert -->
-        <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-r shadow-sm">
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <i class="fas fa-exclamation-triangle text-red-500"></i>
-                </div>
-                <div class="ml-3">
-                    <h3 class="text-sm font-medium text-red-800">冬季自駕最高原則</h3>
-                    <div class="mt-2 text-sm text-red-700">
-                        <ul class="list-disc list-inside space-y-1">
-                            <li><strong>絕對不開夜車：</strong>每日行程請務必於 16:30 前結束。</li>
-                            <li><strong>隨時查路況：</strong>出發前務必確認 DriveTraffic 高速公路是否封閉。</li>
-                            <li><strong>時間估算：</strong>下方時間已含雪地加權，請勿超速。</li>
-                        </ul>
-                    </div>
-                </div>
+    <!-- Sticky Day Selector -->
+    <nav class="sticky-nav shadow-xl">
+        <div class="container mx-auto max-w-2xl p-2">
+            <div class="overflow-x-auto whitespace-nowrap flex gap-2 nav-scroller px-2 py-1">
+                <a href="#day-1" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D1</a>
+                <a href="#day-2" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D2</a>
+                <a href="#day-3" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D3</a>
+                <a href="#day-4" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D4</a>
+                <a href="#day-5" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D5</a>
+                <a href="#day-6" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D6</a>
+                <a href="#day-7" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D7</a>
+                <a href="#day-8" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D8</a>
+                <a href="#day-9" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D9</a>
+                <a href="#day-10" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D10</a>
+                <a href="#day-11" class="px-4 py-2 bg-slate-800 text-white rounded-full text-xs font-black hover:bg-blue-600 shrink-0 transition shadow-inner border border-slate-700">D11</a>
             </div>
         </div>
+    </nav>
 
-        <div class="space-y-8 relative">
-            
-            <!-- Day 1 -->
-            <div id="day-1" class="glass-card rounded-xl shadow-md overflow-hidden scroll-mt-32">
-                <div class="bg-slate-700 text-white px-4 py-2 flex justify-between items-center">
-                    <span class="font-bold">Day 1 | 2/7 (六)</span>
-                    <span class="text-xs bg-slate-600 px-2 py-1 rounded">移動日</span>
+    <main class="container mx-auto max-w-2xl p-4 py-8 space-y-12">
+
+        <!-- Day 1 -->
+        <section id="day-1" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-slate-600">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 01 | 2026.02.07 (六)</p>
+                    <h2 class="text-xl font-black text-slate-800">抵達北海道：夜間小心行駛</h2>
                 </div>
-                <div class="p-5">
-                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
-                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:45</span>
-                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:54</span>
+                <i class="fas fa-plane-arrival text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-6">
+                <!-- Daylight bar -->
+                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
+                        <span>🌅 06:45 AM</span>
+                        <span class="text-amber-600">Light Duration: ~10h</span>
+                        <span>🌇 16:54 PM</span>
                     </div>
-                    
-                    <div class="flex flex-wrap gap-2">
-                        <a href="https://www.hbc.co.jp/info-cam/shinchitose.html" target="_blank" class="cam-link">
-                            <i class="fas fa-video"></i> 查看千歲/機場影像 (HBC)
-                        </a>
+                    <div class="daylight-bar"><div class="daylight-fill" style="left: 28%; width: 42%;"></div></div>
+                </div>
+                <!-- Stats -->
+                <div class="drive-stat-card mb-6">
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Distance</span>
+                        <p class="font-black text-lg">30 <span class="text-xs">km</span></p>
                     </div>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">抵達北海道：湯咖哩與夜間移動</h3>
-                    
-                    <div class="relative pl-6 border-l-2 border-blue-200 space-y-6 mb-4">
-                        <div class="relative">
-                            <i class="fas fa-plane absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
-                            <div class="font-semibold">新千歲機場 (16:05抵達)</div>
-                            <div class="text-sm text-slate-500">🛑 出關+取車約 1.5 hr | 預計 17:30 出發</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-utensils absolute -left-[31px] bg-white text-orange-500 p-1 rounded-full border border-orange-200"></i>
-                            <div class="font-semibold">奧芝商店 (湯咖哩)</div>
-                            <div class="text-sm text-slate-500">位於「道の駅 サーモンパーク千歳」內，停車方便，鮮蝦湯頭一絕。</div>
-                        </div>
-                        <div class="info-section">
-                            <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (千歲 -> 長沼)</p>
-                            <span class="traffic-badge">距離 30km</span>
-                            <span class="traffic-badge">時間 45分</span>
-                            <span class="traffic-badge">免費道路</span>
-                            <p class="text-xs text-red-600 mt-1">注意：此段為夜間駕駛 (18:30後)，鄉間道路無路燈，請開遠光燈並慢行。</p>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
-                            <div class="font-semibold">Casa Cotaro (長沼)</div>
-                            <div class="text-sm text-slate-500">旭町南1丁目6-3 | 19:30 預計抵達</div>
-                        </div>
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Drive</span>
+                        <p class="font-black text-lg">45 <span class="text-xs">min</span></p>
                     </div>
-
-                    <div class="bg-green-50 p-3 rounded text-sm text-green-800 mb-4">
-                        <i class="fas fa-shopping-cart mr-1"></i> <strong>超市補給：</strong> Lucky 長沼店 (ラッキー長沼店)。位於民宿附近，營業至 21:00，可買明早早餐與水。
+                    <div class="text-center">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Fee</span>
+                        <p class="font-black text-lg text-emerald-600 italic">免費</p>
                     </div>
-
-                    <a href="https://www.google.com/maps/dir/New+Chitose+Airport/Okushiba+Shoten+Chitose+Salmon+Park/Casa+Cotaro,+1-chome-6-3+Asahimachiminami,+Naganuma" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-bold transition">
-                        <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 1 導航
-                    </a>
+                </div>
+                <!-- Tips -->
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 mb-8">
+                    <h4 class="text-amber-800 font-black text-xs uppercase mb-2 flex items-center gap-2">
+                        <i class="fas fa-lightbulb"></i> 抵達首日攻略
+                    </h4>
+                    <ul class="text-[11px] text-amber-700 space-y-1 font-medium">
+                        <li>• <strong>雪地適應：</strong>取車後請在停車場先測試煞車感。</li>
+                        <li>• <strong>湯咖哩：</strong>奧芝商店鮮蝦湯底極受歡迎，建議點選海鮮口味。</li>
+                        <li>• <strong>超市：</strong>Lucky 長沼店是當晚唯一的補給點，請買足飲用水。</li>
+                    </ul>
+                </div>
+                <!-- Timeline -->
+                <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8">
+                    <div class="relative"><div class="timeline-dot bg-blue-500"></div><p class="text-[11px] font-black text-blue-600">16:05</p><p class="text-sm font-bold text-slate-800">新千歲機場 CTS 抵達</p></div>
+                    <div class="relative"><div class="timeline-dot bg-orange-500"></div><p class="text-[11px] font-black text-orange-600">18:00</p><p class="text-sm font-bold text-slate-800">奧芝商店湯咖哩 (晚餐)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-slate-800"></div><p class="text-[11px] font-black text-slate-500">19:30</p><p class="text-sm font-bold text-slate-800">抵達 Casa Cotaro (長沼)</p></div>
+                </div>
+                <!-- Actions -->
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.google.com/maps/dir/New+Chitose+Airport/Okushiba+Shoten+Chitose+Salmon+Park/Casa+Cotaro,+1-chome-6-3+Asahimachiminami,+Naganuma" target="_blank" class="col-span-2 bg-blue-600 text-white text-center py-4 rounded-xl font-black text-sm shadow-lg hover:bg-blue-700 active:scale-95 transition-all uppercase tracking-widest"><i class="fas fa-location-arrow mr-2"></i> Open Navigation</a>
+                    <a href="https://www.hbc.co.jp/info-cam/shinchitose.html" target="_blank" class="bg-slate-100 text-slate-600 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2"><i class="fas fa-video"></i> 機場路況</a>
+                    <div class="bg-emerald-50 text-emerald-700 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 border border-emerald-100"><i class="fas fa-shopping-cart"></i> Lucky 超市</div>
                 </div>
             </div>
+        </section>
 
-            <!-- Day 2 -->
-            <div id="day-2" class="glass-card rounded-xl shadow-md overflow-hidden scroll-mt-32">
-                <div class="bg-blue-800 text-white px-4 py-2 flex justify-between items-center">
-                    <span class="font-bold">Day 2 | 2/8 (日)</span>
-                    <span class="text-xs bg-blue-600 px-2 py-1 rounded">大移動</span>
+        <!-- Day 2 -->
+        <section id="day-2" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-blue-800">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 02 | 2026.02.08 (日)</p>
+                    <h2 class="text-xl font-black text-slate-800">穿越日高山脈：直奔阿寒湖</h2>
                 </div>
-                <div class="p-5">
-                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
-                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:40</span>
-                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:45</span>
+                <i class="fas fa-mountain text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-6">
+                <div class="drive-stat-card mb-6">
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Distance</span>
+                        <p class="font-black text-lg">220 <span class="text-xs">km</span></p>
                     </div>
-
-                    <div class="flex flex-wrap gap-2">
-                        <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="cam-link">
-                            <i class="fas fa-video"></i> 查看道東道影像 (HBC)
-                        </a>
-                        <a href="https://www.drivetraffic.jp/" target="_blank" class="highway-link">
-                            <i class="fas fa-road"></i> 高速公路即時路況 (DriveTraffic)
-                        </a>
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Drive</span>
+                        <p class="font-black text-lg">3.5 <span class="text-xs">hr</span></p>
                     </div>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">穿越日高山脈：直奔道東</h3>
-
-                    <div class="relative pl-6 border-l-2 border-blue-200 space-y-6 mb-4">
-                        <div class="relative">
-                            <i class="fas fa-car absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
-                            <div class="font-semibold">Casa Cotaro</div>
-                            <div class="text-sm text-slate-500">09:00 準時出發</div>
-                        </div>
-                        <div class="info-section">
-                            <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (長沼 -> 足寄)</p>
-                            <span class="traffic-badge">距離 220km</span>
-                            <span class="traffic-badge">時間 3.5小時</span>
-                            <span class="traffic-badge">IC收費約 ¥4,600</span>
-                            <p class="text-xs text-slate-600 mt-1">經：道東自動車道 (千歲東IC -> 足寄IC)。中途建議在「占冠PA」或「十勝平原SA」休息。</p>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-coffee absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
-                            <div class="font-semibold">道の駅 足寄湖 (Ashoro)</div>
-                            <div class="text-sm text-slate-500">🛑 停留 1 hr | 午餐：足寄起司與螺肉料理</div>
-                        </div>
-                        <div class="info-section">
-                            <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (足寄 -> 阿寒)</p>
-                            <span class="traffic-badge">距離 50km</span>
-                            <span class="traffic-badge">時間 1小時</span>
-                            <span class="traffic-badge">免費</span>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
-                            <div class="font-semibold">新阿寒酒店</div>
-                            <div class="text-sm text-slate-500">15:00 預計抵達 | 趁天亮逛溫泉街</div>
-                        </div>
+                    <div class="text-center">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span>
+                        <p class="font-black text-lg text-blue-600">¥4,600</p>
                     </div>
-
-                    <a href="https://www.google.com/maps/dir/Casa+Cotaro/Road+Station+Ashoro+Lake/New+Akan+Hotel" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-bold transition">
-                        <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 2 導航
-                    </a>
+                </div>
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 mb-8">
+                    <h4 class="text-amber-800 font-black text-xs uppercase mb-2 flex items-center gap-2">
+                        <i class="fas fa-camera"></i> 長途行車攻略
+                    </h4>
+                    <ul class="text-[11px] text-amber-700 space-y-1 font-medium">
+                        <li>• <strong>高速休息：</strong>道東道占冠、十勝段多隧道且無路燈，請在占冠 PA 稍作休息。</li>
+                        <li>• <strong>景點：</strong>足寄是地科重鎮，道の駅內有許多化石展示。</li>
+                        <li>• <strong>安全：</strong>冬季足寄往阿寒路段常有野生鹿群，請務必於天黑前抵達飯店。</li>
+                    </ul>
+                </div>
+                <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8">
+                    <div class="relative"><div class="timeline-dot bg-slate-800"></div><p class="text-[11px] font-black text-slate-500">09:00</p><p class="text-sm font-bold text-slate-800">長沼 Casa Cotaro 出發</p></div>
+                    <div class="relative"><div class="timeline-dot bg-green-500"></div><p class="text-[11px] font-black text-green-600">11:30</p><p class="text-sm font-bold text-slate-800">道の駅 足寄湖 (化石中心)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-indigo-500"></div><p class="text-[11px] font-black text-indigo-600">14:30</p><p class="text-sm font-bold text-slate-800">抵達新阿寒酒店 Check-in</p></div>
+                    <div class="relative"><div class="timeline-dot bg-orange-500"></div><p class="text-[11px] font-black text-orange-500">16:00</p><p class="text-sm font-bold text-slate-800">阿寒湖溫泉街 & 愛努村散策</p></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.google.com/maps/dir/Casa+Cotaro/Road+Station+Ashoro+Lake/New+Akan+Hotel" target="_blank" class="col-span-2 bg-blue-800 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-location-arrow mr-2"></i> Start Driving</a>
+                    <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="bg-slate-100 text-slate-600 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2"><i class="fas fa-video"></i> 道東即時影像</a>
+                    <a href="https://www.drivetraffic.jp/" target="_blank" class="bg-emerald-50 text-emerald-700 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 border border-emerald-100"><i class="fas fa-road"></i> 高速路況</a>
                 </div>
             </div>
+        </section>
 
-            <!-- Day 3 -->
-            <div id="day-3" class="glass-card rounded-xl shadow-md overflow-hidden scroll-mt-32">
-                <div class="bg-blue-600 text-white px-4 py-2 flex justify-between items-center">
-                    <span class="font-bold">Day 3 | 2/9 (一)</span>
-                    <span class="text-xs bg-blue-500 px-2 py-1 rounded">定點遊</span>
+        <!-- Day 3 -->
+        <section id="day-3" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-indigo-600">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 03 | 2026.02.09 (一)</p>
+                    <h2 class="text-xl font-black text-slate-800">阿寒湖定點遊：冰上冒險</h2>
                 </div>
-                <div class="p-5">
-                    <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="cam-link">
-                        <i class="fas fa-video"></i> 查看阿寒湖周邊路況 (HBC Info-Cam)
-                    </a>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">阿寒湖地質與冰上活動</h3>
-                    <p class="text-sm text-slate-600 mb-4">全日自由活動。本日無長途移動。</p>
-                    <div class="bg-slate-100 p-3 rounded text-sm text-slate-700 mb-4">
-                        <ul class="list-disc list-inside text-xs space-y-2">
-                            <li><strong>地質亮點：</strong>雄阿寒岳(錐狀火山) vs 雌阿寒岳(活火山)。</li>
-                            <li><strong>活動：</strong>冰上釣西太公魚 (Wakasagi)、雪上摩托車。</li>
-                            <li><strong>拍攝點：</strong>清晨 (6:30-7:30) 湖面尋找霜花 (Frost Flowers)。</li>
-                        </ul>
-                    </div>
+                <i class="fas fa-fish text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-6 text-center">
+                <div class="bg-indigo-50 text-indigo-800 py-4 rounded-2xl font-black text-sm mb-6 flex items-center justify-center gap-2">
+                    <i class="fas fa-stop-circle text-lg"></i> 本日定點休息，享受溫泉與自然觀察
+                </div>
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 mb-8 text-left">
+                    <h4 class="text-amber-800 font-black text-xs uppercase mb-2 flex items-center gap-2">
+                        <i class="fas fa-camera"></i> 冰上攝影建議
+                    </h4>
+                    <ul class="text-[11px] text-amber-700 space-y-1 font-medium">
+                        <li>• <strong>霜花：</strong>清晨 6 點氣溫最低時在湖面中心較大機率觀察到。</li>
+                        <li>• <strong>公魚天婦羅：</strong>現釣現炸是特色。</li>
+                        <li>• <strong>地質：</strong>飯店頂樓露天浴場是眺望阿寒岳火山的最佳點。</li>
+                    </ul>
+                </div>
+                <div class="grid grid-cols-2 gap-4 text-left">
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 font-bold text-xs">🔹 06:30 湖面霜花探尋</div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 font-bold text-xs">🔹 09:30 冰上釣公魚/雪托車</div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 font-bold text-xs">🔹 14:00 泥火山 (Bokke) 步道</div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 font-bold text-xs">🔹 19:30 愛努村火慶典觀賞</div>
                 </div>
             </div>
+        </section>
 
-            <!-- Day 4 -->
-            <div id="day-4" class="glass-card rounded-xl shadow-md overflow-hidden scroll-mt-32">
-                <div class="bg-blue-800 text-white px-4 py-2 flex justify-between items-center">
-                    <span class="font-bold">Day 4 | 2/10 (二)</span>
-                    <span class="text-xs bg-blue-600 px-2 py-1 rounded">火山地質</span>
+        <!-- Day 4 (The Template Base) -->
+        <section id="day-4" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-blue-900">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 04 | 2026.02.10 (二)</p>
+                    <h2 class="text-xl font-black text-slate-800">摩周與屈斜路：破火山口奇蹟</h2>
                 </div>
-                <div class="p-5">
-                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
-                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:36</span>
-                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:48</span>
+                <i class="fas fa-volcano text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-6">
+                <div class="drive-stat-card mb-6">
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Distance</span>
+                        <p class="font-black text-lg">65 <span class="text-xs">km</span></p>
                     </div>
-
-                    <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="cam-link">
-                        <i class="fas fa-video"></i> 查看弟子屈/網走方向路況 (HBC Info-Cam)
-                    </a>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">破火山口與噴氣孔</h3>
-
-                    <div class="relative pl-6 border-l-2 border-blue-200 space-y-6 mb-4">
-                        <div class="relative">
-                            <i class="fas fa-car absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
-                            <div class="font-semibold">新阿寒酒店</div>
-                            <div class="text-sm text-slate-500">09:30 出發</div>
-                        </div>
-                        <div class="info-section">
-                            <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (阿寒 -> 摩周 -> 屈斜路)</p>
-                            <span class="traffic-badge">總距離 65km</span>
-                            <span class="traffic-badge">總行車 1.5小時</span>
-                            <span class="traffic-badge">免費</span>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-mountain absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
-                            <div class="font-semibold">摩周湖第一展望台</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-store absolute -left-[31px] bg-white text-pink-500 p-1 rounded-full border border-pink-200"></i>
-                            <div class="font-semibold text-pink-700">道の駅 摩周温泉</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-volcano absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
-                            <div class="font-semibold">硫黃山 (Atosanupuri)</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-water absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
-                            <div class="font-semibold">砂湯 (屈斜路湖)</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
-                            <div class="font-semibold">Wisteria (屈斜路)</div>
-                        </div>
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Drive</span>
+                        <p class="font-black text-lg">1.5 <span class="text-xs">hr</span></p>
                     </div>
-
-                    <a href="https://www.google.com/maps/dir/New+Akan+Hotel/Lake+Mashu+Observatory+No.1/Road+Station+Mashu+Onsen/A-Coop+Teshikaga/Mount+Io/Sunayu/206-50+Kussharo,+Teshikaga" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-bold transition">
-                        <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 4 導航
-                    </a>
+                    <div class="text-center">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Fee</span>
+                        <p class="font-black text-lg text-emerald-600">免費</p>
+                    </div>
+                </div>
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 mb-8">
+                    <h4 class="text-amber-800 font-black text-xs uppercase mb-2 flex items-center gap-2">
+                        <i class="fas fa-camera"></i> 地質攝影攻略
+                    </h4>
+                    <ul class="text-[11px] text-amber-700 space-y-1 font-medium">
+                        <li>• <strong>摩周湖：</strong>展望台右側可避開人群拍到完整的藍湖。</li>
+                        <li>• <strong>硫黃山：</strong>逆光拍攝噴氣孔，煙霧層次感最佳。</li>
+                        <li>• <strong>砂湯：</strong>靠近湖面低角度拍天鵝與地熱煙霧。</li>
+                    </ul>
+                </div>
+                <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8 text-sm">
+                    <div class="relative"><div class="timeline-dot bg-slate-400"></div><p class="text-[11px] font-black text-slate-500">09:30</p><p class="font-bold">新阿寒酒店出發</p></div>
+                    <div class="relative"><div class="timeline-dot bg-blue-500"></div><p class="text-[11px] font-black text-blue-600">10:30</p><p class="font-bold">摩周湖第一展望台 (停留 40m)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-orange-400"></div><p class="text-[11px] font-black text-orange-600">11:30</p><p class="font-bold">道の駅 摩周温泉 (午餐 & 足湯)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-red-600"></div><p class="text-[11px] font-black text-red-600">13:30</p><p class="font-bold">硫黃山 Atosanupuri (火山觀察)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-teal-500"></div><p class="text-[11px] font-black text-teal-600">15:00</p><p class="font-bold">屈斜路湖 砂湯 (賞天鵝)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-indigo-500"></div><p class="text-[11px] font-black text-indigo-600">16:30</p><p class="font-bold text-slate-800">入住屈斜路 Wisteria</p></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.google.com/maps/dir/New+Akan+Hotel/Lake+Mashu+Observatory+No.1/Road+Station+Mashu+Onsen/A-Coop+Teshikaga/Mount+Io/Sunayu/206-50+Kussharo,+Teshikaga" target="_blank" class="col-span-2 bg-blue-900 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-location-arrow mr-2"></i> Start D4 Navigation</a>
+                    <div class="bg-slate-100 text-slate-600 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2"><i class="fas fa-video"></i> 弟子屈影像</div>
+                    <div class="bg-orange-50 text-orange-700 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 border border-orange-100"><i class="fas fa-shopping-cart"></i> A-Coop 超市</div>
                 </div>
             </div>
+        </section>
 
-            <!-- Day 5 -->
-            <div id="day-5" class="glass-card rounded-xl shadow-md overflow-hidden border-2 border-blue-400 scroll-mt-32">
-                <div class="bg-cyan-700 text-white px-4 py-2 flex justify-between items-center">
-                    <span class="font-bold">Day 5 | 2/11 (三)</span>
-                    <span class="text-xs bg-cyan-600 px-2 py-1 rounded">流冰與世界盡頭</span>
+        <!-- Day 5 -->
+        <section id="day-5" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-cyan-600">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 05 | 2026.02.11 (三)</p>
+                    <h2 class="text-xl font-black text-slate-800 text-nowrap">流冰奇緣：前往野付半島</h2>
                 </div>
-                <div class="p-5">
-                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
-                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:33</span>
-                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:48</span>
+                <i class="fas fa-icicles text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-6">
+                <div class="drive-stat-card mb-6">
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Distance</span>
+                        <p class="font-black text-lg">160 <span class="text-xs">km</span></p>
                     </div>
-
-                    <a href="https://www.hbc.co.jp/info-cam/utoro.html" target="_blank" class="cam-link">
-                        <i class="fas fa-video"></i> 查看知床/根室路況 (HBC)
-                    </a>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">鄂霍次克海流冰與野付半島</h3>
-
-                    <div class="relative pl-6 border-l-2 border-cyan-200 space-y-6 mb-4">
-                        <div class="relative">
-                            <i class="fas fa-car absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
-                            <div class="font-semibold">Wisteria</div>
-                            <div class="text-sm text-slate-500">08:30 出發</div>
-                        </div>
-                        <div class="info-section">
-                            <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (屈斜路 -> 斜里 -> 標津 -> 別海)</p>
-                            <span class="traffic-badge">總距離 160km</span>
-                            <span class="traffic-badge">總行車 3.5小時</span>
-                            <span class="traffic-badge">免費</span>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-icicles absolute -left-[31px] bg-white text-cyan-500 p-1 rounded-full border border-cyan-200"></i>
-                            <div class="font-semibold">以久科原生花園 (斜里海岸)</div>
-                        </div>
-                         <div class="relative">
-                            <i class="fas fa-store absolute -left-[31px] bg-white text-pink-500 p-1 rounded-full border border-pink-200"></i>
-                            <div class="font-semibold text-pink-700">道の駅 尾岱沼 (Odaito)</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-camera absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
-                            <div class="font-semibold">野付半島自然中心</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
-                            <div class="font-semibold">LOS PERRITOS (別海)</div>
-                        </div>
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Drive</span>
+                        <p class="font-black text-lg">3.5 <span class="text-xs">hr</span></p>
                     </div>
-
-                    <a href="https://www.google.com/maps/dir/206-50+Kussharo,+Teshikaga/Ikushina+Primeval+Flower+Garden/Road+Station+Odaito/Notsuke+Peninsula+Nature+Center/237-4,+Betsukai,+Hokkaido+086-0216" target="_blank" class="block w-full bg-cyan-600 hover:bg-cyan-700 text-white text-center py-3 rounded-lg font-bold transition">
-                        <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 5 導航
-                    </a>
+                    <div class="text-center">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span>
+                        <p class="font-black text-lg text-emerald-600">免費</p>
+                    </div>
+                </div>
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 mb-8">
+                    <h4 class="text-amber-800 font-black text-xs uppercase mb-2 flex items-center gap-2">
+                        <i class="fas fa-camera"></i> 邊境攝影攻略
+                    </h4>
+                    <ul class="text-[11px] text-amber-700 space-y-1 font-medium">
+                        <li>• <strong>流冰：</strong>以久科海岸若能見到白色海平面，即是流冰接岸。</li>
+                        <li>• <strong>野付：</strong>這是世界少見的「沙嘴」地質，枯木林 (Todowara) 拍起來非常有異界感。</li>
+                        <li>• <strong>別海：</strong>民宿周邊入夜極暗且有冰，請準時抵達補給超市。</li>
+                    </ul>
+                </div>
+                <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8 text-sm">
+                    <div class="relative"><div class="timeline-dot bg-slate-400"></div><p class="text-[11px] font-black text-slate-500">08:30</p><p class="font-bold">屈斜路民宿出發</p></div>
+                    <div class="relative"><div class="timeline-dot bg-cyan-500"></div><p class="text-[11px] font-black text-cyan-600">10:00</p><p class="font-bold">以久科原生花園 (流冰觀察)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-orange-500"></div><p class="text-[11px] font-black text-orange-600">12:30</p><p class="font-bold">道の駅 尾岱沼 (扇貝漢堡)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-emerald-600"></div><p class="text-[11px] font-black text-emerald-600">14:00</p><p class="font-bold">野付半島自然中心 (沙嘴地質)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-indigo-500"></div><p class="text-[11px] font-black text-indigo-600">16:45</p><p class="font-bold">入住別海 Los Perritos</p></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.google.com/maps/dir/206-50+Kussharo,+Teshikaga/Ikushina+Primeval+Flower+Garden/Road+Station+Odaito/Notsuke+Peninsula+Nature+Center/237-4,+Betsukai,+Hokkaido+086-0216" target="_blank" class="col-span-2 bg-cyan-700 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-location-arrow mr-2"></i> Border Exploration</a>
+                    <a href="https://www.hbc.co.jp/info-cam/utoro.html" target="_blank" class="bg-slate-100 text-slate-600 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2"><i class="fas fa-video"></i> 根室即時影像</a>
+                    <div class="bg-orange-50 text-orange-700 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 border border-orange-100"><i class="fas fa-shopping-cart"></i> Fukuhara 超市</div>
                 </div>
             </div>
+        </section>
 
-            <!-- Day 6 -->
-            <div id="day-6" class="glass-card rounded-xl shadow-md overflow-hidden border-2 border-emerald-400 scroll-mt-32">
-                <div class="bg-emerald-700 text-white px-4 py-2 flex justify-between items-center">
-                    <span class="font-bold">Day 6 | 2/12 (四)</span>
-                    <span class="text-xs bg-emerald-600 px-2 py-1 rounded">濕原</span>
+        <!-- Day 6 -->
+        <section id="day-6" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-emerald-700">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 06 | 2026.02.12 (四)</p>
+                    <h2 class="text-xl font-black text-slate-800">濕原慢遊：鶴見與爐端燒</h2>
                 </div>
-                <div class="p-5">
-                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
-                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:31</span>
-                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:50</span>
+                <i class="fas fa-crow text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-6">
+                <div class="drive-stat-card mb-6">
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Distance</span>
+                        <p class="font-black text-lg">100 <span class="text-xs">km</span></p>
                     </div>
-
-                    <a href="https://www.hbc.co.jp/info-cam/kushiro.html" target="_blank" class="cam-link">
-                        <i class="fas fa-video"></i> 查看釧路路況影像 (HBC)
-                    </a>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">釧路濕原與爐端燒</h3>
-
-                    <div class="relative pl-6 border-l-2 border-emerald-200 space-y-6 mb-4">
-                        <div class="relative">
-                            <i class="fas fa-car absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
-                            <div class="font-semibold">LOS PERRITOS</div>
-                        </div>
-                        <div class="info-section">
-                            <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (別海 -> 濕原 -> 釧路)</p>
-                            <span class="traffic-badge">距離 100km</span>
-                            <span class="traffic-badge">時間 2小時</span>
-                            <span class="traffic-badge">免費</span>
-                        </div>
-                         <div class="relative">
-                            <i class="fas fa-tree absolute -left-[31px] bg-white text-emerald-500 p-1 rounded-full border border-emerald-200"></i>
-                            <div class="font-semibold">釧路市濕原展望台</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
-                            <div class="font-semibold">釧路市區飯店</div>
-                        </div>
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Drive</span>
+                        <p class="font-black text-lg">2.0 <span class="text-xs">hr</span></p>
                     </div>
-
-                    <a href="https://www.google.com/maps/dir/237-4,+Betsukai,+Hokkaido+086-0216/Kushiro+Marsh+Observatory/Kushiro+Station" target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center py-3 rounded-lg font-bold transition">
-                        <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 6 導航
-                    </a>
+                    <div class="text-center">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span>
+                        <p class="font-black text-lg text-emerald-600">免費</p>
+                    </div>
+                </div>
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 mb-8 text-[11px] text-amber-700 font-medium">
+                    <h4 class="text-amber-800 font-black text-xs uppercase mb-2 flex items-center gap-2"><i class="fas fa-crow"></i> 生態攝影攻略</h4>
+                    <li>• <strong>丹頂鶴：</strong>早上 10-11 點在鶴見台較多。</li>
+                    <li>• <strong>濕原展望：</strong>展望台頂樓可以拍到濕原河流呈 S 型蛇行。</li>
+                    <li>• <strong>美食：</strong>晚上吃爐端燒時，記得看老師傅碳烤海鮮的專注神情。</li>
+                </div>
+                <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8 text-sm font-bold">
+                    <div class="relative"><div class="timeline-dot bg-slate-400"></div><p class="text-[11px] font-black text-slate-500 uppercase">09:30</p><p>別海民宿出發</p></div>
+                    <div class="relative"><div class="timeline-dot bg-emerald-500"></div><p class="text-[11px] font-black text-emerald-600 uppercase">11:00</p><p>鶴居村 (餵食場觀察)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-teal-600"></div><p class="text-[11px] font-black text-teal-600 uppercase">13:30</p><p>釧路市濕原展望台</p></div>
+                    <div class="relative"><div class="timeline-dot bg-indigo-500"></div><p class="text-[11px] font-black text-indigo-600 uppercase">16:00</p><p>入住釧路飯店 & 幣舞橋夕陽</p></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.google.com/maps/dir/237-4,+Betsukai,+Hokkaido+086-0216/Kushiro+Marsh+Observatory/Kushiro+Station" target="_blank" class="col-span-2 bg-emerald-700 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest"><i class="fas fa-location-arrow mr-2"></i> Start D6 Navigation</a>
+                    <a href="https://www.hbc.co.jp/info-cam/kushiro.html" target="_blank" class="bg-slate-100 text-slate-600 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2"><i class="fas fa-video"></i> 釧路即時影像</a>
+                    <div class="bg-orange-50 text-orange-700 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 border border-orange-100"><i class="fas fa-utensils"></i> 爐端燒 煉瓦</div>
                 </div>
             </div>
+        </section>
 
-            <!-- Day 7 -->
-            <div id="day-7" class="glass-card rounded-xl shadow-md overflow-hidden border-2 border-purple-400 scroll-mt-32">
-                <div class="bg-purple-700 text-white px-4 py-2 flex justify-between items-center">
-                    <span class="font-bold">Day 7 | 2/13 (五)</span>
-                    <span class="text-xs bg-purple-600 px-2 py-1 rounded">寶石冰與火車</span>
+        <!-- Day 7 -->
+        <section id="day-7" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-purple-600">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 07 | 2026.02.13 (五)</p>
+                    <h2 class="text-xl font-black text-slate-800">勝手丼與寶石冰之旅</h2>
                 </div>
-                <div class="p-5">
-                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
-                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:30</span>
-                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 16:53</span>
+                <i class="fas fa-gem text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-6">
+                <div class="drive-stat-card mb-6">
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Distance</span>
+                        <p class="font-black text-lg">130 <span class="text-xs">km</span></p>
                     </div>
-
-                    <div class="flex flex-wrap gap-2">
-                        <a href="https://www.hbc.co.jp/info-cam/obihiro.html" target="_blank" class="cam-link">
-                            <i class="fas fa-video"></i> 查看帶廣影像 (HBC)
-                        </a>
-                        <a href="https://www.drivetraffic.jp/" target="_blank" class="highway-link">
-                            <i class="fas fa-road"></i> 高速公路即時路況 (DriveTraffic)
-                        </a>
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Drive</span>
+                        <p class="font-black text-lg">2.5 <span class="text-xs">hr</span></p>
                     </div>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">勝手丼、SL火車與寶石冰</h3>
-
-                    <div class="relative pl-6 border-l-2 border-purple-200 space-y-6 mb-4">
-                        <div class="relative">
-                            <i class="fas fa-utensils absolute -left-[31px] bg-white text-orange-500 p-1 rounded-full border border-orange-200"></i>
-                            <div class="font-semibold">釧路和商市場 (08:00)</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-crow absolute -left-[31px] bg-white text-emerald-500 p-1 rounded-full border border-emerald-200"></i>
-                            <div class="font-semibold">鶴居・伊藤丹頂鶴聖域 (09:40)</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-train absolute -left-[31px] bg-white text-slate-800 p-1 rounded-full border border-slate-200"></i>
-                            <div class="font-semibold">SL冬之濕原號 拍攝 (11:20-11:40)</div>
-                        </div>
-                        <div class="info-section">
-                            <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (塘路 -> 大津 -> 帶廣)</p>
-                            <span class="traffic-badge">距離 130km</span>
-                            <span class="traffic-badge">時間 2.5小時</span>
-                            <span class="traffic-badge">免費</span>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-gem absolute -left-[31px] bg-white text-purple-500 p-1 rounded-full border border-purple-200"></i>
-                            <div class="font-semibold">大津海岸 (寶石冰)</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
-                            <div class="font-semibold">東橫INN 帶廣</div>
-                        </div>
+                    <div class="text-center">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span>
+                        <p class="font-black text-lg text-emerald-600 italic text-nowrap">免費</p>
                     </div>
-
-                    <a href="https://www.google.com/maps/dir/Kushiro+Washo+Market/Tsurui-Ito+Tancho+Sanctuary/Toro+Station/Otsu+Coast/Asahido/Toyoko+Inn+Hokkaido+Tokachi+Obihiro+Ekimae" target="_blank" class="block w-full bg-purple-600 hover:bg-purple-700 text-white text-center py-3 rounded-lg font-bold transition">
-                        <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 7 導航
-                    </a>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100 mb-8 font-medium">
+                    <h4 class="text-purple-800 font-black text-xs uppercase mb-2 flex items-center gap-2"><i class="fas fa-clock"></i> 關鍵時程提醒</h4>
+                    <p class="text-[11px] text-purple-700">• <strong>SL濕原號：</strong>火車經過塘路站時煙霧最美，請務必 11:20 抵達卡位。</p>
+                    <p class="text-[11px] text-purple-700">• <strong>寶石冰：</strong>大津海岸需步行 10 分鐘，冰塊在夕陽斜射下最具「寶石感」。</p>
+                </div>
+                <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8 text-sm">
+                    <div class="relative"><div class="timeline-dot bg-orange-500"></div><p class="text-[11px] font-black text-orange-600 uppercase">08:00</p><p class="font-bold uppercase tracking-tight">釧路和商市場 (早餐：勝手丼)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-emerald-500"></div><p class="text-[11px] font-black text-emerald-600 uppercase">09:40</p><p class="font-bold">鶴居・伊藤丹頂鶴聖域</p></div>
+                    <div class="relative"><div class="timeline-dot bg-slate-800"></div><p class="text-[11px] font-black text-slate-500 uppercase">11:20</p><p class="font-bold uppercase tracking-tight text-red-600">SL 冬之濕原號拍照</p></div>
+                    <div class="relative"><div class="timeline-dot bg-purple-500"></div><p class="text-[11px] font-black text-purple-600 uppercase">14:30</p><p class="font-bold">大津海岸寶石冰觀察</p></div>
+                    <div class="relative"><div class="timeline-dot bg-indigo-500"></div><p class="text-[11px] font-black text-indigo-600 uppercase">16:45</p><p class="font-bold">入住帶廣東橫INN</p></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.google.com/maps/dir/Kushiro+Washo+Market/Tsurui-Ito+Tancho+Sanctuary/Toro+Station/Otsu+Coast/Asahido/Toyoko+Inn+Hokkaido+Tokachi+Obihiro+Ekimae" target="_blank" class="col-span-2 bg-purple-600 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-location-arrow mr-2"></i> Golden Route Navigation</a>
+                    <a href="https://www.hbc.co.jp/info-cam/obihiro.html" target="_blank" class="bg-slate-100 text-slate-600 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2"><i class="fas fa-video"></i> 帶廣即時影像</a>
+                    <div class="bg-orange-50 text-orange-700 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 border border-orange-100 font-black"><i class="fas fa-utensils"></i> 晚餐: ぱんちょう 豚丼</div>
                 </div>
             </div>
+        </section>
 
-            <!-- Day 8 -->
-            <div id="day-8" class="glass-card rounded-xl shadow-md overflow-hidden scroll-mt-32">
-                <div class="bg-slate-600 text-white px-4 py-2 flex justify-between items-center">
-                    <span class="font-bold">Day 8 | 2/14 (六)</span>
-                    <span class="text-xs bg-slate-500 px-2 py-1 rounded">回程移動</span>
+        <!-- Day 8 -->
+        <section id="day-8" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-slate-700">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 08 | 2026.02.14 (六)</p>
+                    <h2 class="text-xl font-black text-slate-800">帶廣到白老：美味和牛巡禮</h2>
                 </div>
-                <div class="p-5">
-                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
-                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:33</span>
-                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 17:00</span>
+                <i class="fas fa-hamburger text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-6">
+                <div class="drive-stat-card mb-6">
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Distance</span>
+                        <p class="font-black text-lg">180 <span class="text-xs">km</span></p>
                     </div>
-
-                    <div class="flex flex-wrap gap-2">
-                        <a href="https://www.hbc.co.jp/info-cam/obihiro.html" target="_blank" class="cam-link">
-                            <i class="fas fa-video"></i> 查看十勝路況影像 (HBC)
-                        </a>
-                        <a href="https://www.drivetraffic.jp/" target="_blank" class="highway-link">
-                            <i class="fas fa-road"></i> 高速公路即時路況 (DriveTraffic)
-                        </a>
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Drive</span>
+                        <p class="font-black text-lg">2.5 <span class="text-xs">hr</span></p>
                     </div>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">返回道央：高速公路移動</h3>
-                    <div class="relative pl-6 border-l-2 border-slate-200 space-y-6 mb-4">
-                        <div class="relative">
-                            <i class="fas fa-car absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
-                            <div class="font-semibold">帶廣市區</div>
-                            <div class="text-sm text-slate-500">09:30 出發</div>
-                        </div>
-                        <div class="info-section">
-                            <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (音更 -> 白老)</p>
-                            <span class="traffic-badge">距離 180km</span>
-                            <span class="traffic-badge">時間 2.5小時</span>
-                            <span class="traffic-badge">IC收費約 ¥4,000</span>
-                            <p class="text-xs text-slate-600 mt-1">經：道東自動車道 (音更帶廣IC -> 白老IC)。</p>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
-                            <div class="font-semibold">One House (白老)</div>
-                        </div>
+                    <div class="text-center">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span>
+                        <p class="font-black text-lg text-blue-600 italic">¥4,000</p>
                     </div>
-                    <div class="bg-green-50 p-3 rounded text-sm text-green-800 mb-4">
-                        <i class="fas fa-shopping-cart mr-1"></i> <strong>超市補給：</strong> Super Kumagai。必買「白老牛」肉片回民宿煮火鍋。
-                    </div>
-                    <a href="https://www.google.com/maps/dir/Toyoko+Inn+Hokkaido+Tokachi+Obihiro+Ekimae/Road+Station+Otofuke/Road+Station+Yubari+Merodo/Super+Kumagai/One+House,+Shiraoi" target="_blank" class="block w-full bg-slate-600 hover:bg-slate-700 text-white text-center py-3 rounded-lg font-bold transition">
-                        <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 8 導航
-                    </a>
+                </div>
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 mb-8 font-medium">
+                    <h4 class="text-amber-800 font-black text-xs uppercase mb-2 flex items-center gap-2"><i class="fas fa-utensils"></i> 補給攻略</h4>
+                    <p class="text-[11px] text-amber-700">• <strong>音更道之驛：</strong>是北海道最大的休息站，適合購買十勝產豆類伴手禮。</p>
+                    <p class="text-[11px] text-amber-700">• <strong>白老牛：</strong>民宿附近 Super Kumagai 買白老牛火鍋片非常划算，品質絕佳。</p>
+                </div>
+                <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8 text-sm">
+                    <div class="relative"><div class="timeline-dot bg-slate-400"></div><p class="text-[11px] font-black text-slate-500">09:30</p><p class="font-bold font-black">帶廣市區出發</p></div>
+                    <div class="relative"><div class="timeline-dot bg-orange-500"></div><p class="text-[11px] font-black text-orange-600">10:00</p><p class="font-bold uppercase tracking-tight">道の駅 おとふけ (巨大道之驛)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-green-500"></div><p class="text-[11px] font-black text-green-600">13:00</p><p class="font-bold">道の駅 夕張メロード (休息)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-indigo-500"></div><p class="text-[11px] font-black text-indigo-600">15:30</p><p class="font-bold uppercase tracking-tight text-indigo-800">抵達白老 One House & 超市採買</p></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.google.com/maps/dir/Toyoko+Inn+Hokkaido+Tokachi+Obihiro+Ekimae/Road+Station+Otofuke/Road+Station+Yubari+Merodo/Super+Kumagai/One+House,+Shiraoi" target="_blank" class="col-span-2 bg-slate-700 text-white text-center py-4 rounded-xl font-black text-sm shadow-lg uppercase tracking-widest"><i class="fas fa-location-arrow mr-2"></i> Start D8 Navigation</a>
+                    <a href="https://www.drivetraffic.jp/" target="_blank" class="bg-emerald-50 text-emerald-700 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 border border-emerald-100"><i class="fas fa-road"></i> 高速即時路況</a>
+                    <div class="bg-orange-50 text-orange-700 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 border border-orange-100 font-black"><i class="fas fa-shopping-cart"></i> 超市: Super Kumagai</div>
                 </div>
             </div>
+        </section>
 
-            <!-- Day 9 -->
-            <div id="day-9" class="glass-card rounded-xl shadow-md overflow-hidden scroll-mt-32">
-                <div class="bg-slate-600 text-white px-4 py-2 flex justify-between items-center">
-                    <span class="font-bold">Day 9 | 2/15 (日)</span>
-                    <span class="text-xs bg-slate-500 px-2 py-1 rounded">愛努與火山</span>
+        <!-- Day 9 -->
+        <section id="day-9" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-orange-500">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 09 | 2026.02.15 (日)</p>
+                    <h2 class="text-xl font-black text-slate-800">愛努民族與全日最深火口湖</h2>
                 </div>
-                <div class="p-5">
-                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
-                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:35</span>
-                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 17:05</span>
+                <i class="fas fa-archway text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-6">
+                <div class="drive-stat-card mb-6">
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Distance</span>
+                        <p class="font-black text-lg">90 <span class="text-xs">km</span></p>
                     </div>
-
-                    <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="cam-link">
-                        <i class="fas fa-video"></i> 查看札幌/道央路況 (HBC Info-Cam)
-                    </a>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">愛努文化與支笏湖破火山口</h3>
-                    <div class="relative pl-6 border-l-2 border-slate-200 space-y-6 mb-4">
-                        <div class="relative">
-                            <i class="fas fa-car absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
-                            <div class="font-semibold">One House</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-museum absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
-                            <div class="font-semibold">Upopoy (民族共生象徵空間)</div>
-                        </div>
-                        <div class="info-section">
-                            <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (白老 -> 支笏湖 -> 札幌)</p>
-                            <span class="traffic-badge">距離 90km</span>
-                            <span class="traffic-badge">時間 2小時</span>
-                            <span class="traffic-badge">免費</span>
-                        </div>
-                         <div class="relative">
-                            <i class="fas fa-water absolute -left-[31px] bg-white text-green-500 p-1 rounded-full border border-green-200"></i>
-                            <div class="font-semibold">支笏湖 (Lake Shikotsu)</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-bed absolute -left-[31px] bg-white text-indigo-500 p-1 rounded-full border border-indigo-200"></i>
-                            <div class="font-semibold">MP STYLE Fortuna (札幌)</div>
-                        </div>
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Drive</span>
+                        <p class="font-black text-lg">2.0 <span class="text-xs">hr</span></p>
                     </div>
-                    <a href="https://www.google.com/maps/dir/One+House,+Shiraoi/Upopoy/Lake+Shikotsu/MP+STYLE+Fortuna,+1015-7+Minami+5+Jonishi,+Sapporo" target="_blank" class="block w-full bg-slate-600 hover:bg-slate-700 text-white text-center py-3 rounded-lg font-bold transition">
-                        <i class="fas fa-map-marked-alt mr-2"></i> 開啟 Day 9 導航
-                    </a>
+                    <div class="text-center">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span>
+                        <p class="font-black text-lg text-emerald-600">免費</p>
+                    </div>
+                </div>
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 mb-8 font-medium">
+                    <h4 class="text-amber-800 font-black text-xs uppercase mb-2 flex items-center gap-2"><i class="fas fa-info-circle"></i> 文化與地質筆記</h4>
+                    <p class="text-[11px] text-amber-700">• <strong>Upopoy：</strong>愛努文化的核心，建議欣賞 10:30 的傳統舞蹈表演。</p>
+                    <p class="text-[11px] text-amber-700">• <strong>支笏湖：</strong>典型的破火山口湖，水質清澈度與摩周湖齊名，即使嚴冬也幾乎不結冰。</p>
+                </div>
+                <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8 text-sm">
+                    <div class="relative"><div class="timeline-dot bg-slate-400"></div><p class="text-[11px] font-black text-slate-500 uppercase">09:00</p><p class="font-bold">白老民宿出發</p></div>
+                    <div class="relative"><div class="timeline-dot bg-orange-600"></div><p class="text-[11px] font-black text-orange-600 uppercase">09:30</p><p class="font-bold font-black">Upopoy 民族共生象徵空間</p></div>
+                    <div class="relative"><div class="timeline-dot bg-blue-500"></div><p class="text-[11px] font-black text-blue-600 uppercase">13:30</p><p class="font-bold font-black text-blue-800 uppercase tracking-tighter">支笏湖 (地質觀察)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-indigo-600"></div><p class="text-[11px] font-black text-indigo-600 uppercase">16:30</p><p class="font-bold">抵達札幌民宿入住</p></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.google.com/maps/dir/One+House,+Shiraoi/Upopoy/Lake+Shikotsu/MP+STYLE+Fortuna,+1015-7+Minami+5+Jonishi,+Sapporo" target="_blank" class="col-span-2 bg-orange-600 text-white text-center py-4 rounded-xl font-black text-sm shadow-lg uppercase tracking-widest hover:bg-orange-700"><i class="fas fa-location-arrow mr-2"></i> Culture Route Navigation</a>
+                    <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="bg-slate-100 text-slate-600 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2"><i class="fas fa-video"></i> 札幌影像</a>
+                    <div class="bg-orange-50 text-orange-700 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 border border-orange-100 font-black"><i class="fas fa-utensils"></i> 晚餐: Suage+ 湯咖哩</div>
                 </div>
             </div>
+        </section>
 
-             <!-- Day 10 -->
-             <div id="day-10" class="glass-card rounded-xl shadow-md overflow-hidden scroll-mt-32">
-                <div class="bg-slate-600 text-white px-4 py-2 flex justify-between items-center">
-                    <span class="font-bold">Day 10 | 2/16 (一)</span>
-                    <span class="text-xs bg-slate-500 px-2 py-1 rounded">市區觀光</span>
+        <!-- Day 10 -->
+        <section id="day-10" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-slate-800">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 10 | 2026.02.16 (一)</p>
+                    <h2 class="text-xl font-black text-slate-800 uppercase">札幌市區：最後採買與探索</h2>
                 </div>
-                <div class="p-5">
-                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
-                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:40</span>
-                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 17:05</span>
-                    </div>
-
-                    <a href="https://www.hbc.co.jp/info-cam/" target="_blank" class="cam-link">
-                        <i class="fas fa-video"></i> 查看札幌市區路況 (HBC Info-Cam)
-                    </a>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">札幌一日遊：徒步與採買</h3>
-                    <p class="text-sm text-slate-600">車輛停放飯店，步行或搭乘地鐵移動。</p>
-                    <div class="bg-slate-100 p-3 rounded text-sm text-slate-700 mt-2 mb-4">
-                        <ul class="list-disc list-inside">
-                            <li><strong>狸小路商店街：</strong> 藥妝、伴手禮採買。</li>
-                            <li><strong>大通公園：</strong> 拍攝電視塔。</li>
-                            <li><strong>北海道大學：</strong> 綜合博物館 (地質標本豐富)。</li>
-                        </ul>
-                    </div>
+                <i class="fas fa-shopping-bag text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-6">
+                <div class="bg-indigo-50 text-indigo-800 py-4 rounded-2xl font-black text-sm mb-6 flex items-center justify-center gap-2">
+                    <i class="fas fa-stop-circle text-lg"></i> 本日不開車，感受雪國城市魅力
+                </div>
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 mb-8 font-medium">
+                    <h4 class="text-amber-800 font-black text-xs uppercase mb-2 flex items-center gap-2"><i class="fas fa-map-marker-alt"></i> 札幌漫遊攻略</h4>
+                    <p class="text-[11px] text-amber-700">• <strong>北海道大學：</strong>綜合博物館的地質與古生物館藏非常豐富，免費參觀。</p>
+                    <p class="text-[11px] text-amber-700">• <strong>採買：</strong>狸小路商店街藥妝最齊全，建議傍晚後前往。</p>
+                    <p class="text-[11px] text-amber-700">• <strong>美食：</strong>根室花丸壽司常需排隊 2 小時，建議提前領號。</p>
+                </div>
+                <div class="grid grid-cols-1 gap-4 text-left font-bold text-sm">
+                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border"><div class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs">1</div> 10:00 北海道大學校園散步 (博物館)</div>
+                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border"><div class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs">2</div> 13:00 大通公園電視塔 & 札幌工廠</div>
+                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border"><div class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs">3</div> 15:00 狸小路商店街 (大肆採買)</div>
+                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border"><div class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs">4</div> 18:00 薄野 Susukino 美食夜</div>
                 </div>
             </div>
+        </section>
 
-             <!-- Day 11 -->
-             <div id="day-11" class="glass-card rounded-xl shadow-md overflow-hidden scroll-mt-32">
-                <div class="bg-slate-800 text-white px-4 py-2 flex justify-between items-center">
-                    <span class="font-bold">Day 11 | 2/17 (二)</span>
-                    <span class="text-xs bg-slate-600 px-2 py-1 rounded">返程</span>
+        <!-- Day 11 -->
+        <section id="day-11" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-slate-900 mb-12">
+            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                <div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 11 | 2026.02.17 (二)</p>
+                    <h2 class="text-xl font-black text-slate-800">踏上歸途：滿油還車 ✈️</h2>
                 </div>
-                <div class="p-5">
-                    <div class="flex justify-between text-xs text-slate-500 mb-4 bg-slate-100 p-2 rounded">
-                        <span><i class="fas fa-sun text-orange-400"></i> 日出 06:35</span>
-                        <span><i class="fas fa-moon text-indigo-400"></i> 日落 17:05</span>
+                <i class="fas fa-plane-departure text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-6">
+                <div class="drive-stat-card mb-6">
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">To CTS</span>
+                        <p class="font-black text-lg">50 <span class="text-xs">km</span></p>
                     </div>
-
-                    <div class="flex flex-wrap gap-2">
-                        <a href="https://www.hbc.co.jp/info-cam/shinchitose.html" target="_blank" class="cam-link">
-                            <i class="fas fa-video"></i> 查看機場路況影像 (HBC)
-                        </a>
-                        <a href="https://www.drivetraffic.jp/" target="_blank" class="highway-link">
-                            <i class="fas fa-road"></i> 高速公路即時路況 (DriveTraffic)
-                        </a>
+                    <div class="text-center border-r border-slate-200">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">Drive</span>
+                        <p class="font-black text-lg">1.0 <span class="text-xs">hr</span></p>
                     </div>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 mt-4">前往機場</h3>
-                    <div class="relative pl-6 border-l-2 border-slate-200 space-y-6 mb-4">
-                        <div class="relative">
-                            <i class="fas fa-car absolute -left-[31px] bg-white text-blue-500 p-1 rounded-full border border-blue-200"></i>
-                            <div class="font-semibold">札幌市區</div>
-                        </div>
-                        <div class="info-section">
-                            <p class="font-bold text-xs text-slate-500 mb-1">🚗 移動資訊 (札幌 -> 機場)</p>
-                            <span class="traffic-badge">距離 50km</span>
-                            <span class="traffic-badge">時間 1小時</span>
-                            <span class="traffic-badge">IC收費約 ¥1,300</span>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-gas-pump absolute -left-[31px] bg-white text-red-500 p-1 rounded-full border border-red-200"></i>
-                            <div class="font-semibold">千歲市區加油 (滿油還車)</div>
-                        </div>
-                        <div class="relative">
-                            <i class="fas fa-plane absolute -left-[31px] bg-white text-red-500 p-1 rounded-full border border-red-200"></i>
-                            <div class="font-semibold">新千歲機場 (12:00前還車)</div>
-                        </div>
+                    <div class="text-center">
+                        <span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span>
+                        <p class="font-black text-lg text-blue-600">¥1,300</p>
                     </div>
-                    <a href="https://www.google.com/maps/dir/MP+STYLE+Fortuna/New+Chitose+Airport" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-900 text-white text-center py-3 rounded-lg font-bold transition">
-                        <i class="fas fa-map-marked-alt mr-2"></i> 開啟機場導航
-                    </a>
+                </div>
+                <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8 text-sm">
+                    <div class="relative"><div class="timeline-dot bg-slate-800"></div><p class="text-[11px] font-black text-slate-500 uppercase">09:00</p><p class="font-bold">札幌飯店出發 (避開車潮)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-red-600"></div><p class="text-[11px] font-black text-red-600 uppercase">10:30</p><p class="font-bold">千歲市區加油站 (滿油還車)</p></div>
+                    <div class="relative"><div class="timeline-dot bg-blue-600"></div><p class="text-[11px] font-black text-blue-600 uppercase">11:30</p><p class="font-bold">還車完成 & 接駁至機場</p></div>
+                    <div class="relative"><div class="timeline-dot bg-slate-400"></div><p class="text-[11px] font-black text-slate-500 uppercase">14:40</p><p class="font-bold font-black text-slate-900 tracking-tighter">CI131 班機起飛返台</p></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.google.com/maps/dir/MP+STYLE+Fortuna/New+Chitose+Airport" target="_blank" class="col-span-2 bg-slate-900 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-plane-departure mr-2"></i> To Airport</a>
+                    <a href="https://www.hbc.co.jp/info-cam/shinchitose.html" target="_blank" class="bg-slate-100 text-slate-600 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2"><i class="fas fa-video"></i> 機場影像</a>
+                    <a href="https://www.drivetraffic.jp/" target="_blank" class="bg-emerald-50 text-emerald-700 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 border border-emerald-100"><i class="fas fa-road"></i> 高速路況</a>
                 </div>
             </div>
+        </section>
 
-        </div>
     </main>
 
-    <footer class="bg-slate-800 text-slate-400 text-center p-6 text-sm">
+    <!-- Bottom Footer for Mobile -->
+    <footer class="bg-slate-900 text-slate-500 text-center p-16 text-xs font-bold font-black">
+        <div class="flex justify-center gap-6 mb-4 text-slate-400 text-xl">
+            <i class="fas fa-mountain"></i>
+            <i class="fas fa-snowflake"></i>
+            <i class="fas fa-car"></i>
+        </div>
         <p>© 2026 北海道自駕地質探險隊</p>
-        <p class="mt-2 text-xs">行程僅供參考，請依當日天氣與路況彈性調整。</p>
+        <p class="mt-4 uppercase tracking-widest opacity-30 text-[10px]">Happy New Year • Drive Safe • Stay Warm</p>
     </footer>
 
 </body>
