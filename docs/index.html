@@ -23,7 +23,7 @@
             background-color: #f1f5f9;
             scroll-behavior: smooth;
             -webkit-tap-highlight-color: transparent;
-            padding-bottom: 60px; /* 為底部固定欄預留空間 */
+            padding-bottom: 80px;
         }
         .sticky-nav {
             position: sticky;
@@ -62,8 +62,8 @@
             border: 1px solid #e2e8f0;
         }
         .daylight-bar {
-            height: 6px;
-            border-radius: 3px;
+            height: 8px;
+            border-radius: 4px;
             background: #e2e8f0;
             overflow: hidden;
             position: relative;
@@ -80,7 +80,6 @@
         .timeline-dot {
             @apply absolute -left-[23px] w-4 h-4 rounded-full border-4 border-white bg-blue-500;
         }
-        /* 倒數橫幅動畫 */
         @keyframes pulse-slow {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.9; }
@@ -88,6 +87,16 @@
         .countdown-banner {
             animation: pulse-slow 3s infinite ease-in-out;
             transition: all 0.5s ease;
+        }
+        .custom-point-input {
+            @apply w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all;
+        }
+        .custom-point-item {
+            @apply flex items-center justify-between p-2 mt-2 bg-white border border-slate-100 rounded-lg shadow-sm animate-fade-in;
+        }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -126,291 +135,47 @@
     </nav>
 
     <main class="container mx-auto max-w-2xl p-4 py-8 space-y-12">
+        <div id="itinerary-container" class="space-y-12">
+            <!-- 由 JS 動態生成行程卡片 -->
+        </div>
+    </main>
 
-        <!-- Day 1 -->
-        <section id="day-1" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-slate-600">
-            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div>
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 01 | 2026.02.07 (六)</p>
-                    <h2 class="text-xl font-black text-slate-800">抵達北海道：取車與雪地適應</h2>
-                </div>
-                <i class="fas fa-plane-arrival text-slate-100 text-4xl mb-1"></i>
-            </div>
-            <div class="p-6">
-                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
-                        <span>🌅 06:44</span>
-                        <span class="text-amber-600 italic">Daylight: ~10h 10m</span>
-                        <span>🌇 16:54</span>
-                    </div>
-                    <div class="daylight-bar"><div class="daylight-fill" style="width: 42%;"></div></div>
-                </div>
-                <div class="drive-stat-card mb-6">
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Distance</span><p class="font-black text-lg">30 km</p></div>
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Drive</span><p class="font-black text-lg">45 min</p></div>
-                    <div class="text-center"><span class="text-[9px] text-slate-400 font-black uppercase">Fee</span><p class="font-black text-lg text-emerald-600 italic">免費</p></div>
-                </div>
-                <div class="space-y-6 relative pl-4 border-l-2 border-slate-100 mb-8 text-sm">
-                    <div class="relative"><div class="timeline-dot bg-blue-500"></div><p class="font-bold text-blue-600">16:05 新千歲機場 CTS 抵達</p></div>
-                    <div class="relative"><div class="timeline-dot bg-orange-500"></div><p class="font-bold">18:00 奧芝商店湯咖哩 (晚餐)</p></div>
-                </div>
-                <a href="https://www.google.com/maps/dir/New+Chitose+Airport/Okushiba+Shoten+Chitose+Salmon+Park/Casa+Cotaro" target="_blank" class="block bg-blue-600 text-white text-center py-4 rounded-xl font-black text-sm shadow-lg hover:bg-blue-700 transition-all uppercase tracking-widest"><i class="fas fa-location-arrow mr-2"></i> Open Navigation</a>
-            </div>
-        </section>
+    <!-- 底部固定的日出/日落倒數橫幅 -->
+    <div id="countdown-banner" class="fixed bottom-0 left-0 right-0 z-[110] bg-slate-900 text-white py-3 px-4 text-center shadow-[0_-4px_15px_rgba(0,0,0,0.3)] border-t border-slate-700 countdown-banner">
+        <div class="container mx-auto flex items-center justify-center gap-3">
+            <i id="countdown-icon" class="fas fa-clock text-sm text-blue-400"></i>
+            <span id="countdown-label" class="text-[10px] font-bold tracking-widest uppercase">狀態載入中</span>
+            <span id="countdown-timer" class="text-sm font-black font-mono tracking-tighter">00:00:00</span>
+            <span id="countdown-tip" class="text-[9px] opacity-75 font-medium ml-1 hidden sm:inline">⚠️ 留意路況</span>
+        </div>
+    </div>
 
-        <!-- Day 2 -->
-        <section id="day-2" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-blue-800">
-            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 02 | 2026.02.08 (日)</p><h2 class="text-xl font-black text-slate-800">穿越日高山脈：前往阿寒湖</h2></div>
-                <i class="fas fa-mountain text-slate-100 text-4xl mb-1"></i>
-            </div>
-            <div class="p-6">
-                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
-                        <span>🌅 06:38</span>
-                        <span class="text-amber-600 italic">Daylight: ~10h 10m</span>
-                        <span>🌇 16:48</span>
-                    </div>
-                    <div class="daylight-bar"><div class="daylight-fill" style="width: 42%;"></div></div>
-                </div>
-                <div class="drive-stat-card mb-6">
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Distance</span><p class="font-black text-lg">220 km</p></div>
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Drive</span><p class="font-black text-lg">3.5 hr</p></div>
-                    <div class="text-center"><span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span><p class="font-black text-lg text-blue-600">¥4,600</p></div>
-                </div>
-                <a href="https://www.google.com/maps/dir/Casa+Cotaro/Road+Station+Ashoro+Lake/New+Akan+Hotel" target="_blank" class="block bg-blue-800 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-location-arrow mr-2"></i> Start Driving</a>
-            </div>
-        </section>
-
-        <!-- Day 3 -->
-        <section id="day-3" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-indigo-600">
-            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 03 | 2026.02.09 (一)</p><h2 class="text-xl font-black text-slate-800">阿寒湖定點遊：冰上冒險</h2></div>
-                <i class="fas fa-fish text-slate-100 text-4xl mb-1"></i>
-            </div>
-            <div class="p-6 text-center">
-                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase text-left">
-                        <span>🌅 06:37</span>
-                        <span class="text-amber-600 italic">Daylight: ~10h 12m</span>
-                        <span>🌇 16:49</span>
-                    </div>
-                    <div class="daylight-bar"><div class="daylight-fill" style="width: 42%;"></div></div>
-                </div>
-                <div class="bg-indigo-50 text-indigo-800 py-4 rounded-2xl font-black text-sm mb-6 flex items-center justify-center gap-2"><i class="fas fa-stop-circle text-lg"></i> 定點休息：享受溫泉與火山地貌</div>
-                <div class="grid grid-cols-2 gap-4 text-left mb-8 font-bold text-xs">
-                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">🔹 06:30 湖面霜花探尋</div>
-                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">🔹 09:30 冰上釣公魚/雪托車</div>
-                </div>
-                <a href="https://www.google.com/maps/search/New+Akan+Hotel+attractions" target="_blank" class="block bg-indigo-600 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-map-marked-alt mr-2"></i> Explore Akan</a>
-            </div>
-        </section>
-
-        <!-- Day 4 -->
-        <section id="day-4" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-blue-900">
-            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 04 | 2026.02.10 (二)</p><h2 class="text-xl font-black text-slate-800">摩周與屈斜路：破火山口奇蹟</h2></div>
-                <i class="fas fa-volcano text-slate-100 text-4xl mb-1"></i>
-            </div>
-            <div class="p-6">
-                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
-                        <span>🌅 06:36</span>
-                        <span class="text-amber-600 italic">Daylight: ~10h 14m</span>
-                        <span>🌇 16:50</span>
-                    </div>
-                    <div class="daylight-bar"><div class="daylight-fill" style="width: 43%;"></div></div>
-                </div>
-                <div class="drive-stat-card mb-6">
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Distance</span><p class="font-black text-lg">65 km</p></div>
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Drive</span><p class="font-black text-lg">1.5 hr</p></div>
-                    <div class="text-center"><span class="text-[9px] text-slate-400 font-black uppercase">Fee</span><p class="font-black text-lg text-emerald-600 italic">免費</p></div>
-                </div>
-                <a href="https://www.google.com/maps/dir/New+Akan+Hotel/Lake+Mashu/Mount+Io/Sunayu/206-50+Kussharo" target="_blank" class="block bg-blue-900 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-location-arrow mr-2"></i> Start D4 Navigation</a>
-            </div>
-        </section>
-
-        <!-- Day 5 -->
-        <section id="day-5" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-cyan-600">
-            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 05 | 2026.02.11 (三)</p><h2 class="text-xl font-black text-slate-800">流冰奇緣：前往野付半島</h2></div>
-                <i class="fas fa-icicles text-slate-100 text-4xl mb-1"></i>
-            </div>
-            <div class="p-6">
-                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
-                        <span>🌅 06:32</span>
-                        <span class="text-amber-600 italic">Daylight: ~10h 15m</span>
-                        <span>🌇 16:47</span>
-                    </div>
-                    <div class="daylight-bar"><div class="daylight-fill" style="width: 43%;"></div></div>
-                </div>
-                <div class="drive-stat-card mb-6">
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Distance</span><p class="font-black text-lg">160 km</p></div>
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Drive</span><p class="font-black text-lg">3.5 hr</p></div>
-                    <div class="text-center"><span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span><p class="font-black text-lg text-emerald-600 italic">免費</p></div>
-                </div>
-                <a href="https://www.google.com/maps/dir/206-50+Kussharo/Ikushina/Odaito/Notsuke/237-4,+Betsukai" target="_blank" class="block bg-cyan-700 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-location-arrow mr-2"></i> Border Exploration</a>
-            </div>
-        </section>
-
-        <!-- Day 6 -->
-        <section id="day-6" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-emerald-700">
-            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 06 | 2026.02.12 (四)</p><h2 class="text-xl font-black text-slate-800">濕原慢遊：鶴見與爐端燒</h2></div>
-                <i class="fas fa-crow text-slate-100 text-4xl mb-1"></i>
-            </div>
-            <div class="p-6">
-                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
-                        <span>🌅 06:32</span>
-                        <span class="text-amber-600 italic">Daylight: ~10h 19m</span>
-                        <span>🌇 16:51</span>
-                    </div>
-                    <div class="daylight-bar"><div class="daylight-fill" style="width: 44%;"></div></div>
-                </div>
-                <div class="drive-stat-card mb-6">
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Distance</span><p class="font-black text-lg">100 km</p></div>
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Drive</span><p class="font-black text-lg">2.0 hr</p></div>
-                    <div class="text-center"><span class="text-[9px] text-slate-400 font-black uppercase">Fee</span><p class="font-black text-lg text-emerald-600 italic">免費</p></div>
-                </div>
-                <a href="https://www.google.com/maps/dir/237-4,+Betsukai/Kushiro+Marsh+Observatory/Kushiro+Station" target="_blank" class="block bg-emerald-700 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-location-arrow mr-2"></i> Go to Kushiro</a>
-            </div>
-        </section>
-
-        <!-- Day 7 -->
-        <section id="day-7" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-purple-600">
-            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 07 | 2026.02.13 (五)</p><h2 class="text-xl font-black text-slate-800">勝手丼與寶石冰之旅</h2></div>
-                <i class="fas fa-gem text-slate-100 text-4xl mb-1"></i>
-            </div>
-            <div class="p-6">
-                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
-                        <span>🌅 06:31</span>
-                        <span class="text-amber-600 italic">Daylight: ~10h 22m</span>
-                        <span>🌇 16:53</span>
-                    </div>
-                    <div class="daylight-bar"><div class="daylight-fill" style="width: 44%;"></div></div>
-                </div>
-                <div class="drive-stat-card mb-6">
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Distance</span><p class="font-black text-lg">130 km</p></div>
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Drive</span><p class="font-black text-lg">2.5 hr</p></div>
-                    <div class="text-center"><span class="text-[9px] text-slate-400 font-black uppercase">Fee</span><p class="font-black text-lg text-emerald-600 italic">免費</p></div>
-                </div>
-                <a href="https://www.google.com/maps/dir/Kushiro+Washo+Market/Toro+Station/Otsu+Coast/Toyoko+Inn+Obihiro" target="_blank" class="block bg-purple-600 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-location-arrow mr-2"></i> Golden Route</a>
-            </div>
-        </section>
-
-        <!-- Day 8 -->
-        <section id="day-8" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-slate-700">
-            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 08 | 2026.02.14 (六)</p><h2 class="text-xl font-black text-slate-800">帶廣到白老：美味和牛巡禮</h2></div>
-                <i class="fas fa-hamburger text-slate-100 text-4xl mb-1"></i>
-            </div>
-            <div class="p-6">
-                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
-                        <span>🌅 06:33</span>
-                        <span class="text-amber-600 italic">Daylight: ~10h 25m</span>
-                        <span>🌇 16:58</span>
-                    </div>
-                    <div class="daylight-bar"><div class="daylight-fill" style="width: 45%;"></div></div>
-                </div>
-                <div class="drive-stat-card mb-6">
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Distance</span><p class="font-black text-lg">180 km</p></div>
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Drive</span><p class="font-black text-lg">2.5 hr</p></div>
-                    <div class="text-center"><span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span><p class="font-black text-lg text-blue-600 italic">¥4,000</p></div>
-                </div>
-                <a href="https://www.google.com/maps/dir/Toyoko+Inn+Obihiro/Road+Station+Otofuke/Super+Kumagai/One+House,+Shiraoi" target="_blank" class="block bg-slate-700 text-white text-center py-4 rounded-xl font-black text-sm shadow-lg uppercase tracking-widest"><i class="fas fa-location-arrow mr-2"></i> Start D8 Navigation</a>
-            </div>
-        </section>
-
-        <!-- Day 9 -->
-        <section id="day-9" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-orange-500">
-            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 09 | 2026.02.15 (日)</p><h2 class="text-xl font-black text-slate-800">愛努民族與全日最深火口湖</h2></div>
-                <i class="fas fa-archway text-slate-100 text-4xl mb-1"></i>
-            </div>
-            <div class="p-6">
-                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
-                        <span>🌅 06:35</span>
-                        <span class="text-amber-600 italic">Daylight: ~10h 30m</span>
-                        <span>🌇 17:05</span>
-                    </div>
-                    <div class="daylight-bar"><div class="daylight-fill" style="width: 46%;"></div></div>
-                </div>
-                <div class="drive-stat-card mb-6">
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Distance</span><p class="font-black text-lg">90 km</p></div>
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Drive</span><p class="font-black text-lg">2.0 hr</p></div>
-                    <div class="text-center"><span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span><p class="font-black text-lg text-emerald-600 italic">免費</p></div>
-                </div>
-                <a href="https://www.google.com/maps/dir/One+House,+Shiraoi/Upopoy/Lake+Shikotsu/MP+STYLE+Fortuna" target="_blank" class="block bg-orange-600 text-white text-center py-4 rounded-xl font-black text-sm shadow-lg uppercase tracking-widest hover:bg-orange-700 transition-all"><i class="fas fa-location-arrow mr-2"></i> Culture Route</a>
-            </div>
-        </section>
-
-        <!-- Day 10 -->
-        <section id="day-10" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-slate-800">
-            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 10 | 2026.02.16 (一)</p><h2 class="text-xl font-black text-slate-800">札幌市區：最後採買與探索</h2></div>
-                <i class="fas fa-shopping-bag text-slate-100 text-4xl mb-1"></i>
-            </div>
-            <div class="p-6">
-                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
-                        <span>🌅 06:34</span>
-                        <span class="text-amber-600 italic">Daylight: ~10h 33m</span>
-                        <span>🌇 17:07</span>
-                    </div>
-                    <div class="daylight-bar"><div class="daylight-fill" style="width: 47%;"></div></div>
-                </div>
-                <div class="bg-indigo-50 text-indigo-800 py-4 rounded-2xl font-black text-sm mb-6 flex items-center justify-center gap-2"><i class="fas fa-stop-circle text-lg"></i> 本日不開車，體驗雪國城市魅力</div>
-                <a href="https://www.google.com/maps/search/Sapporo+attractions" target="_blank" class="block bg-slate-800 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg"><i class="fas fa-walking mr-2"></i> Explore City</a>
-            </div>
-        </section>
-
-        <!-- Day 11 -->
-        <section id="day-11" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-slate-900 mb-12">
-            <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day 11 | 2026.02.17 (二)</p><h2 class="text-xl font-black text-slate-800">踏上歸途：滿油還車 ✈️</h2></div>
-                <i class="fas fa-plane-departure text-slate-100 text-4xl mb-1"></i>
-            </div>
-            <div class="p-6">
-                <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
-                        <span>🌅 06:32</span>
-                        <span class="text-amber-600 italic">Daylight: ~10h 36m</span>
-                        <span>🌇 17:08</span>
-                    </div>
-                    <div class="daylight-bar"><div class="daylight-fill" style="width: 48%;"></div></div>
-                </div>
-                <div class="drive-stat-card mb-6">
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">To CTS</span><p class="font-black text-lg">50 km</p></div>
-                    <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">Drive</span><p class="font-black text-lg">1.0 hr</p></div>
-                    <div class="text-center"><span class="text-[9px] text-slate-400 font-black uppercase">IC Fee</span><p class="font-black text-lg text-blue-600">¥1,300</p></div>
-                </div>
-                <a href="https://www.google.com/maps/dir/MP+STYLE+Fortuna/New+Chitose+Airport" target="_blank" class="block bg-slate-900 text-white text-center py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg hover:bg-black transition-all"><i class="fas fa-plane-departure mr-2"></i> To Airport</a>
-            </div>
-        </section>
-
-        <!-- Road Info Section -->
-        <section id="road-info" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-emerald-600 mb-12">
+    <!-- 即時路況 (加寬且加大版) -->
+    <section id="road-info" class="container mx-auto max-w-5xl px-4 mb-12">
+        <div class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-emerald-600">
             <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
                 <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Real-time Traffic</p><h2 class="text-xl font-black text-slate-800">北海道開發局即時路況</h2></div>
                 <i class="fas fa-road text-slate-100 text-4xl mb-1"></i>
             </div>
-            <div class="p-4 bg-slate-50">
+            <div class="p-2 bg-slate-100">
                 <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-inner bg-white">
-                    <iframe width="100%" height="600" src="https://www.road-info-prvs.mlit.go.jp/roadinfo/pctw/" frameborder="0"></iframe>
+                    <!-- 維持高度 800px 確保操作空間 -->
+                    <iframe width="100%" height="800" src="https://www.road-info-prvs.mlit.go.jp/roadinfo/pctw/" frameborder="0" class="w-full"></iframe>
                 </div>
             </div>
-        </section>
+            <div class="px-6 py-3 bg-white border-t text-center">
+                <a href="https://www.road-info-prvs.mlit.go.jp/roadinfo/pctw/" target="_blank" class="text-[10px] font-bold text-emerald-600 hover:underline uppercase tracking-tighter">
+                    <i class="fas fa-external-link-alt mr-1"></i> 若無法操作請開啟全螢幕原始網站
+                </a>
+            </div>
+        </div>
+    </section>
 
-        <!-- Weather Section -->
-        <section id="weather" class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-amber-500 mb-12">
+    <!-- 天氣區塊 -->
+    <section id="weather" class="container mx-auto max-w-2xl px-4 mb-12">
+        <div class="glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 border-amber-500">
             <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
-                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Real-time Weather & Map</p><h2 class="text-xl font-black text-slate-800">即時氣象與道東地圖</h2></div>
+                <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Weather & Map</p><h2 class="text-xl font-black text-slate-800">即時氣象與道東地圖</h2></div>
                 <i class="fas fa-cloud-sun text-slate-100 text-4xl mb-1"></i>
             </div>
             <div class="p-4 bg-slate-50 space-y-6">
@@ -419,109 +184,174 @@
                     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');</script>
                 </div>
                 <div id="windy-container" class="rounded-2xl overflow-hidden border border-slate-200 shadow-inner bg-white min-h-[450px]">
-                    <div class="flex items-center justify-center h-[450px] text-slate-400 text-sm italic">正在載入地圖...</div>
+                    <div class="flex items-center justify-center h-[450px] text-slate-400 text-sm italic text-center px-4">
+                        <div>
+                            <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                            <p>正在載入地圖...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-
-    </main>
-
-    <!-- Unified Fixed Countdown Banner -->
-    <div id="countdown-banner" class="fixed bottom-0 left-0 right-0 z-[110] bg-slate-900 text-white py-2 px-4 text-center shadow-[0_-4px_10px_rgba(0,0,0,0.15)] border-t border-slate-700 countdown-banner">
-        <div class="container mx-auto flex items-center justify-center gap-3">
-            <i id="countdown-icon" class="fas fa-clock text-sm text-blue-400"></i>
-            <span id="countdown-label" class="text-[10px] font-bold tracking-widest uppercase">狀態載入中</span>
-            <span id="countdown-timer" class="text-sm font-black font-mono tracking-tighter">00:00:00</span>
-            <span id="countdown-tip" class="text-[9px] opacity-75 font-medium ml-1 hidden sm:inline">⚠️ 載入資訊...</span>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-500 text-center p-16 pb-28 text-xs font-bold font-black">
+    <footer class="bg-slate-900 text-slate-500 text-center p-16 pb-32 text-xs font-bold font-black">
         <div class="flex justify-center gap-6 mb-4 text-slate-400 text-xl"><i class="fas fa-mountain"></i><i class="fas fa-snowflake"></i><i class="fas fa-car"></i></div>
         <p>© 2026 新年北海道自駕</p>
-        <p class="mt-4 uppercase tracking-widest opacity-30 text-[10px]">Real-time Daylight Countdown Enabled</p>
+        <p class="mt-4 uppercase tracking-widest opacity-30 text-[10px]">Cloud Sync & PWA Ready</p>
     </footer>
 
-    <!-- Scripts -->
-    <script>
-        // 即時日光倒數整合邏輯
-        function updateCountdown() {
-            const timerElement = document.getElementById('countdown-timer');
-            const labelElement = document.getElementById('countdown-label');
-            const tipElement = document.getElementById('countdown-tip');
-            const iconElement = document.getElementById('countdown-icon');
-            const banner = document.getElementById('countdown-banner');
-            
-            const now = new Date();
-            
-            // 預設參考值（北海道 2 月均值）
-            const sunriseTime = { h: 6, m: 40 };
-            const sunsetTime = { h: 16, m: 50 };
-            
-            const sunrise = new Date(); sunrise.setHours(sunriseTime.h, sunriseTime.m, 0);
-            const sunset = new Date(); sunset.setHours(sunsetTime.h, sunsetTime.m, 0);
-            const startSunsetCount = new Date(); startSunsetCount.setHours(14, 0, 0); // 下午兩點開始日落倒數
-            const startSunriseCount = new Date(sunrise.getTime() - (2 * 60 * 60 * 1000)); // 日出前兩小時開始日出倒數
+    <!-- Firebase & Logic Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-            function formatDiff(ms) {
-                const hours = Math.floor(ms / (1000 * 60 * 60));
-                const mins = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
-                const secs = Math.floor((ms % (1000 * 60)) / 1000);
-                return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-            }
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'hokkaido-2026';
 
-            // 判斷當前階段
-            if (now >= startSunsetCount && now < sunset) {
-                // 日落倒數階段
-                banner.className = "fixed bottom-0 left-0 right-0 z-[110] bg-gradient-to-r from-orange-600 to-rose-700 text-white py-2 px-4 text-center shadow-lg border-t border-orange-400 countdown-banner";
-                labelElement.innerText = "日落倒數";
-                timerElement.innerText = formatDiff(sunset - now);
-                tipElement.innerText = "⚠️ 請在天黑前抵達目的地";
-                iconElement.className = "fas fa-sun text-sm animate-spin-slow";
-            } 
-            else if (now >= startSunriseCount && now < sunrise) {
-                // 日出倒數階段
-                banner.className = "fixed bottom-0 left-0 right-0 z-[110] bg-gradient-to-r from-blue-700 to-indigo-900 text-white py-2 px-4 text-center shadow-lg border-t border-blue-400 countdown-banner";
-                labelElement.innerText = "日出倒數";
-                timerElement.innerText = formatDiff(sunrise - now);
-                tipElement.innerText = "❄️ 準備迎接晨光";
-                iconElement.className = "fas fa-moon text-sm animate-pulse";
-            }
-            else if (now >= sunrise && now < startSunsetCount) {
-                // 白天正常階段
-                banner.className = "fixed bottom-0 left-0 right-0 z-[110] bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 py-2 px-4 text-center shadow-lg border-t border-amber-300 countdown-banner font-bold";
-                labelElement.innerText = "日光活動中";
-                timerElement.innerText = "ENJOY DRIVING";
-                tipElement.innerText = "📍 享受道東壯麗美景";
-                iconElement.className = "fas fa-car text-sm";
-            }
-            else {
-                // 夜晚階段
-                banner.className = "fixed bottom-0 left-0 right-0 z-[110] bg-slate-900 text-slate-400 py-2 px-4 text-center shadow-lg border-t border-slate-700 countdown-banner";
-                labelElement.innerText = "夜晚行車注意";
-                timerElement.innerText = "SUNSET MODE";
-                tipElement.innerText = "🧊 留意路面結冰與野生動物";
-                iconElement.className = "fas fa-snowflake text-sm";
-            }
+        let currentUser = null;
+
+        const staticDays = [
+            { id: 1, date: '2026.02.07 (六)', title: '抵達北海道：取車與雪地適應', icon: 'fa-plane-arrival', color: 'border-slate-600', sunrise: '06:44', sunset: '16:54', distance: '30 km', drive: '45 min', fee: '免費' },
+            { id: 2, date: '2026.02.08 (日)', title: '穿越日高山脈：前往阿寒湖', icon: 'fa-mountain', color: 'border-blue-800', sunrise: '06:38', sunset: '16:48', distance: '220 km', drive: '3.5 hr', fee: '¥4,600' },
+            { id: 3, date: '2026.02.09 (一)', title: '阿寒湖定點遊：冰上冒險', icon: 'fa-fish', color: 'border-indigo-600', sunrise: '06:37', sunset: '16:49', distance: '0 km', drive: '0 hr', fee: '免費', isRest: true },
+            { id: 4, date: '2026.02.10 (二)', title: '摩周與屈斜路：破火山口奇蹟', icon: 'fa-volcano', color: 'border-blue-900', sunrise: '06:36', sunset: '16:50', distance: '65 km', drive: '1.5 hr', fee: '免費' },
+            { id: 5, date: '2026.02.11 (三)', title: '流冰奇緣：前往野付半島', icon: 'fa-icicles', color: 'border-cyan-600', sunrise: '06:32', sunset: '16:47', distance: '160 km', drive: '3.5 hr', fee: '免費' },
+            { id: 6, date: '2026.02.12 (四)', title: '濕原慢遊：鶴見與爐端燒', icon: 'fa-crow', color: 'border-emerald-700', sunrise: '06:32', sunset: '16:51', distance: '100 km', drive: '2.0 hr', fee: '免費' },
+            { id: 7, date: '2026.02.13 (五)', title: '勝手丼與寶石冰之旅', icon: 'fa-gem', color: 'border-purple-600', sunrise: '06:31', sunset: '16:53', distance: '130 km', drive: '2.5 hr', fee: '免費' },
+            { id: 8, date: '2026.02.14 (六)', title: '帶廣到白老：美味和牛巡禮', icon: 'fa-hamburger', color: 'border-slate-700', sunrise: '06:33', sunset: '16:58', distance: '180 km', drive: '2.5 hr', fee: '¥4,000' },
+            { id: 9, date: '2026.02.15 (日)', title: '愛努民族與全日最深火口湖', icon: 'fa-archway', color: 'border-orange-500', sunrise: '06:35', sunset: '17:05', distance: '90 km', drive: '2.0 hr', fee: '免費' },
+            { id: 10, date: '2026.02.16 (一)', title: '札幌市區：最後採買與探索', icon: 'fa-shopping-bag', color: 'border-slate-800', sunrise: '06:34', sunset: '17:07', distance: '0 km', drive: '0 hr', fee: '免費', isRest: true },
+            { id: 11, date: '2026.02.17 (二)', title: '踏上歸途：滿油還車 ✈️', icon: 'fa-plane-departure', color: 'border-slate-900', sunrise: '06:32', sunset: '17:08', distance: '50 km', drive: '1.0 hr', fee: '¥1,300' }
+        ];
+
+        function renderItinerary(customPoints = []) {
+            const container = document.getElementById('itinerary-container');
+            container.innerHTML = '';
+            staticDays.forEach(day => {
+                const dayPoints = customPoints.filter(p => p.dayId === day.id);
+                const section = document.createElement('section');
+                section.id = `day-${day.id}`;
+                section.className = `glass-card rounded-3xl shadow-xl overflow-hidden border-t-8 ${day.color}`;
+                section.innerHTML = `
+                    <div class="px-6 py-4 border-b bg-white flex justify-between items-end">
+                        <div><p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Day ${String(day.id).padStart(2,'0')} | ${day.date}</p><h2 class="text-xl font-black text-slate-800">${day.title}</h2></div>
+                        <i class="fas ${day.icon} text-slate-100 text-4xl mb-1"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                            <div class="flex justify-between text-[10px] font-black text-slate-500 uppercase">
+                                <span>🌅 ${day.sunrise}</span><span class="text-amber-600 italic">日光時間</span><span>🌇 ${day.sunset}</span>
+                            </div>
+                            <div class="daylight-bar"><div class="daylight-fill" style="width: 45%;"></div></div>
+                        </div>
+                        ${!day.isRest ? `
+                        <div class="drive-stat-card mb-6">
+                            <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">距離</span><p class="font-black text-lg">${day.distance}</p></div>
+                            <div class="text-center border-r border-slate-200"><span class="text-[9px] text-slate-400 font-black uppercase">行車時間</span><p class="font-black text-lg">${day.drive}</p></div>
+                            <div class="text-center"><span class="text-[9px] text-slate-400 font-black uppercase">IC 費用</span><p class="font-black text-lg text-emerald-600 italic">${day.fee}</p></div>
+                        </div>` : `<div class="bg-indigo-50 text-indigo-800 py-4 rounded-2xl font-black text-sm mb-6 text-center">🌲 休憩與自然探索</div>`}
+                        <div class="space-y-2 mb-6">
+                            ${dayPoints.map(p => `
+                            <div class="custom-point-item">
+                                <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.name)}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-blue-600 hover:underline"><i class="fas fa-map-marker-alt"></i> ${p.name}</a>
+                                <button class="delete-btn text-slate-300 hover:text-red-500 p-1" data-id="${p.docId}"><i class="fas fa-times text-[10px]"></i></button>
+                            </div>`).join('')}
+                        </div>
+                        <div class="mt-4 flex gap-2">
+                            <input type="text" id="input-${day.id}" placeholder="新增自定義地點..." class="custom-point-input">
+                            <button class="add-point-btn bg-slate-800 text-white px-3 py-2 rounded-lg text-xs font-black hover:bg-blue-600 transition-all" data-day="${day.id}"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>`;
+                container.appendChild(section);
+            });
+            
+            document.querySelectorAll('.add-point-btn').forEach(btn => {
+                btn.onclick = async () => {
+                    const dayId = parseInt(btn.dataset.day), input = document.getElementById(`input-${dayId}`), name = input.value.trim();
+                    if (name && currentUser) { 
+                        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'locations'), { 
+                            dayId, name, createdAt: Date.now() 
+                        }); 
+                        input.value = ''; 
+                    }
+                };
+            });
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.onclick = async () => { 
+                    if (currentUser) {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'locations', btn.dataset.id)); 
+                    }
+                };
+            });
         }
 
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+        const initAuth = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (e) {
+                console.error("Auth init failed:", e);
+            }
+        };
 
-        // Windy Geolocation
-        function loadWindy(lat, lon) {
-            const windyUrl = `https://embed.windy.com/embed2.html?lat=${lat}&lon=${lon}&zoom=8&level=surface&overlay=temp&menu=&message=&marker=true&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1`;
-            document.getElementById('windy-container').innerHTML = `<iframe width="100%" height="450" src="${windyUrl}" frameborder="0"></iframe>`;
-        }
-        const defaultLat = 43.500, defaultLon = 142.500;
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (pos) => loadWindy(pos.coords.latitude, pos.coords.longitude),
-                () => loadWindy(defaultLat, defaultLon),
-                { timeout: 5000 }
-            );
-        } else { loadWindy(defaultLat, defaultLon); }
+        const init = () => {
+            onAuthStateChanged(auth, user => {
+                currentUser = user;
+                if (user) {
+                    const q = collection(db, 'artifacts', appId, 'public', 'data', 'locations');
+                    onSnapshot(q, snap => {
+                        renderItinerary(snap.docs.map(d => ({ ...d.data(), docId: d.id })));
+                    }, err => {
+                        console.error("Firestore listener failed:", err);
+                    });
+                }
+            });
+            initAuth();
+
+            const updateCountdown = () => {
+                const timerEl = document.getElementById('countdown-timer'), labelEl = document.getElementById('countdown-label'), iconEl = document.getElementById('countdown-icon'), banner = document.getElementById('countdown-banner'), now = new Date();
+                const sunrise = new Date(); sunrise.setHours(6, 40, 0);
+                const sunset = new Date(); sunset.setHours(16, 50, 0);
+                const startSunset = new Date(); startSunset.setHours(14, 0, 0); 
+                const startSunrise = new Date(sunrise.getTime() - (2 * 3600000));
+                
+                const fmt = ms => { 
+                    const h = Math.floor(ms/3600000), m = Math.floor((ms%3600000)/60000), s = Math.floor((ms%60000)/1000); 
+                    return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; 
+                };
+
+                if (now >= startSunset && now < sunset) {
+                    banner.className = "fixed bottom-0 left-0 right-0 z-[110] bg-gradient-to-r from-orange-600 to-rose-700 text-white py-3 px-4 text-center shadow-lg border-t border-orange-400 countdown-banner";
+                    labelEl.innerText = "日落倒數"; timerEl.innerText = fmt(sunset - now); iconEl.className = "fas fa-sun text-sm animate-spin-slow text-yellow-300";
+                } else if (now >= startSunrise && now < sunrise) {
+                    banner.className = "fixed bottom-0 left-0 right-0 z-[110] bg-gradient-to-r from-blue-700 to-indigo-900 text-white py-3 px-4 text-center shadow-lg border-t border-blue-400 countdown-banner";
+                    labelEl.innerText = "日出倒數"; timerEl.innerText = fmt(sunrise - now); iconEl.className = "fas fa-moon text-sm animate-pulse text-blue-200";
+                } else {
+                    banner.className = "fixed bottom-0 left-0 right-0 z-[110] bg-slate-900 text-white py-3 px-4 text-center shadow-lg border-t border-slate-700 countdown-banner";
+                    labelEl.innerText = (now >= sunrise && now < startSunset) ? "日光活動中" : "夜晚行車注意"; 
+                    timerEl.innerText = (now >= sunrise && now < startSunset) ? "ENJOY DAYLIGHT" : "REST MODE"; 
+                    iconEl.className = "fas fa-car text-sm text-blue-400";
+                }
+            };
+            setInterval(updateCountdown, 1000); updateCountdown();
+        };
+
+        const loadWindy = (lat, lon) => {
+            const url = `https://embed.windy.com/embed2.html?lat=${lat}&lon=${lon}&zoom=8&level=surface&overlay=temp&menu=&message=&marker=true&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1`;
+            document.getElementById('windy-container').innerHTML = `<iframe width="100%" height="450" src="${url}" frameborder="0"></iframe>`;
+        };
+        if (navigator.geolocation) navigator.geolocation.getCurrentPosition(p => loadWindy(p.coords.latitude, p.coords.longitude), () => loadWindy(43.5, 142.5), {timeout: 5000});
+        else loadWindy(43.5, 142.5);
+
+        init();
     </script>
 </body>
 </html>
