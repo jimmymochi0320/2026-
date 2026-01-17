@@ -12,7 +12,7 @@
     <meta name="apple-mobile-web-app-title" content="北海道自駕">
     
     <!-- Web App Manifest -->
-    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJnameIjogIjIwMjYg5paw5bm05YyX5rW36YGT6Ieq6ae96YGKIiwKICAic2hvcnRfbmFtZSI6ICLljYXmtaTooYzoqIgiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2YxZjVmOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwZjE3MmEiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJz48cmVjdCB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMicgZmlsbD0nIzBmMTcyYScvPjx0ZXh0IHg9JzUwJScgeT0nNTAlJyBmb250LXNpemU9JzMwMCcgZG9taW5hbnQtYmFzZWxpbmU9J21pZGRsZScgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nIzhjYWZmZic+4p2EPC90ZXh0Pjwvc3ZnPiIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdCn0=">
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJnameIjogIjIwMjYg5paw5bm05YyX5rW36YGT6Ieq6ae96YGKIiwKICAic2hvcnRfbmFtZSI6ICLljYXmtaTooYzoqIgiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2YxZjVmOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwZjE3MmEiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJz48cmVjdCB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMicgZmlsbD0nIzBmMTcyYScvPjx0ZXh0IHg9JzUwJScgeT0nNTAlJyBmb250LXNpemU9JzMwMCcgZG9taW5hbnQtYmFzZWxpbmU9J21pZGRsZScgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nIzhjYWZmZic+4p2EPC90ZXh0Pjwvc3ZnPiIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgIC2InR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdCn0=">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -342,6 +342,28 @@
             </div>
         </section>
 
+        <!-- Weather/Windy Section -->
+        <section id="weather" class="glass-card rounded-2xl shadow-md overflow-hidden border-t-4 border-amber-500 mb-12">
+            <div class="px-5 py-4 border-b bg-white flex justify-between items-end">
+                <div><p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Real-time Weather</p><h2 class="text-lg font-black text-slate-800">即時氣象與風場地圖</h2></div>
+                <i class="fas fa-cloud-sun text-slate-100 text-4xl mb-1"></i>
+            </div>
+            <div class="p-4 bg-slate-50 space-y-4">
+                <!-- Weather Widget Forecast -->
+                <div class="rounded-xl overflow-hidden border border-slate-200 shadow-inner bg-white">
+                    <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/43d06141d35/sapporo/" data-label_1="HOKKAIDO" data-label_2="日本北海道即時氣象" data-theme="pure" >HOKKAIDO 日本北海道即時氣象</a>
+                    <script>
+                    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+                    </script>
+                </div>
+
+                <!-- Windy Map -->
+                <div id="windy-container" class="rounded-xl overflow-hidden border border-slate-200 shadow-inner min-h-[450px] bg-white flex items-center justify-center text-slate-400 text-sm">
+                    載入位置中...
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Sun Timer Banner -->
@@ -413,6 +435,36 @@
 
         setInterval(updateSunTimer, 1000);
         updateSunTimer();
+
+        // Windy Geolocation Logic with Fallback
+        function loadWindy(lat, lon) {
+            const windyUrl = `https://embed.windy.com/embed2.html?lat=${lat}&lon=${lon}&zoom=8&level=surface&overlay=temp&menu=&message=&marker=true&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1`;
+            document.getElementById('windy-container').innerHTML = `
+                <iframe 
+                    width="100%" 
+                    height="450" 
+                    src="${windyUrl}" 
+                    frameborder="0">
+                </iframe>`;
+        }
+
+        const defaultLat = 43.0; // 北海道道東 預設座標 (釧路區域)
+        const defaultLon = 144.3;
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    loadWindy(position.coords.latitude, position.coords.longitude);
+                },
+                (error) => {
+                    console.warn("Geolocation failed, using default Hokkaido view.", error);
+                    loadWindy(defaultLat, defaultLon);
+                },
+                { timeout: 5000 }
+            );
+        } else {
+            loadWindy(defaultLat, defaultLon);
+        }
     </script>
 </body>
 </html>
